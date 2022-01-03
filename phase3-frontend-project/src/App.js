@@ -1,21 +1,23 @@
+import React from "react";
 import './App.css';
+// import 'Household' from './Household.js';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div >
+      <header id="header">
+        <img src="./LogoJPG.jpg" alt="logo" className="logo"/>
+        <p>DropDown for User goes here</p>
       </header>
+      <div id="household">
+        household/people here
+      </div>
+      <div id="pets">
+        pets here
+      </div>
+      <div id="tasks">
+        tasks here
+      </div>
     </div>
   );
 }
