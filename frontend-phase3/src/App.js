@@ -27,6 +27,8 @@ function App() {
   const [petData, setPetData] = useState([]);
   const [taskData, setTaskData] = useState([]);
 
+  const [currentUser, setCurrentUser] = useState(1);
+
   useEffect(() => {
     fetch(url + "/households")
     .then(r => r.json())
@@ -50,24 +52,31 @@ function App() {
     .then(r => r.json())
     .then(data => setTaskData(data))
   }, [showCreateTask]);
+  
+  function handleUserChange(e) {
+    const userID = e.target.value;
+    const userObj = userData.find(user => user.id === parseInt(userID))
+
+    setCurrentUser(userObj);
+  }
 
   return (
     <div >
-      <div id="page-header">
+      <div id="header-container">
         <Header />
-          
-          <Form.Select aria-label="user_select" id="user-dropdown">
-            <option>Which user are you?</option>
-            {userData.map(user => {
-                        return (<option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>)
-                      })}
-          </Form.Select>
+    
+        <Form.Select aria-label="user_select" id="user-dropdown" onChange={(e) => handleUserChange(e)}>
+          <option>Which user are you?</option>
+          {userData.map(user => {
+                      return (<option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>)
+                    })}
+        </Form.Select>
       </div>
       
       <Container>
         <Row>
           <Col id="household" className="component">
-            <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} householdData={householdData}/>
+            <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} householdData={householdData} currentUser={currentUser} userData={userData}/>
             <CreateHousehold show={showCreateHousehold} onHide={() => setShowCreateHousehold(false)} url={url} householdData={householdData}/>
           </Col>
           <Col id="pets" className="component">
@@ -82,22 +91,6 @@ function App() {
           </Col>
         </Row>
       </Container>
-
-      {/* Below commented out code is the old App.js version for React components.
-      
-      <div id="household">
-        <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} />
-        <CreateHousehold
-        show={showCreateHousehold}
-        onHide={() => setShowCreateHousehold(false)}
-      />
-      </div>
-      <div id="pets">
-        <Pets />
-      </div>
-      <div id="tasks">
-        <Tasks />
-      </div> */}
     </div>
   );
 }

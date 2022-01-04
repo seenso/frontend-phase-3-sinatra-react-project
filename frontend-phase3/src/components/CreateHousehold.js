@@ -6,26 +6,6 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 function CreateHousehold(props) {
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [householdId, setHouseholdId] = useState();
-  
-  // useEffect(() => {
-  //   fetch(props.url+"/users", {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       first_name: firstName,
-  //       last_name: lastName,
-  //       household_id: householdId
-  //     })
-  //   })
-  //   .then(r => r.json())
-  //   .then(data => console.log("Posted user: ", data))
-
-  // }, [householdId])
 
   function handleFormSubmit(e) {
     e.preventDefault();
@@ -47,12 +27,7 @@ function CreateHousehold(props) {
     })
     .then(r => r.json())
     .then(data => console.log("Posted user: ", data))
-
-    // setFirstName(e.target[0].value);
-    // setLastName(e.target[1].value);
-    // setHouseholdId(e.target[2].value);
   }
-
 
   return (
     <Modal
