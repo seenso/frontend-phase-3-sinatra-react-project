@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+.logo {
+   text-align: center;
+ }
+
+#header {
+  display: inline-block;
+  text-align: center;
+ }
+
+ .component {
+   border-style: solid;
+   padding: 10px;
+   margin: 5px;
+ }
+
+ #household {
+   background-color: pink;
+ }
+
+ #pets {
+   background-color: lightblue;
+ }
+
+ #tasks {
+   background-color: lightgreen;
+ }
+
+h1 {
+  color: #3F559E;
+  float: left;
+}
+ .create-btn {
+   float: right;
+ }
