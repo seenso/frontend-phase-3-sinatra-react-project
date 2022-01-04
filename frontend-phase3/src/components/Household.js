@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function Household({ showCreateHousehold, setShowCreateHousehold }) {
+function Household({ showCreateHousehold, setShowCreateHousehold, householdData }) {
 
   return (
       <Container>
@@ -21,7 +21,9 @@ function Household({ showCreateHousehold, setShowCreateHousehold }) {
         <Row>
           <Col>
           <ul>
-            <li>Household members go here</li>
+            {householdData.map(household => {
+                      return (<li key={household.id} value={household.id}>{household.household_name}</li>)
+                    })}
           </ul>
           </Col>
         </Row>

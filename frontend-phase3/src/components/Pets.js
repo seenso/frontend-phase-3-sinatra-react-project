@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function Pets({ showCreatePet, setShowCreatePet }) {
+function Pets({ showCreatePet, setShowCreatePet, petData }) {
 
   return (
     <Container>
@@ -21,7 +21,9 @@ function Pets({ showCreatePet, setShowCreatePet }) {
         <Row>
           <Col>
           <ul>
-            <li>Pets go here</li>
+            {petData.map(pet => {
+                      return (<li key={pet.id} value={pet.id}>{pet.first_name}</li>)
+                    })}
           </ul>
           </Col>
         </Row>

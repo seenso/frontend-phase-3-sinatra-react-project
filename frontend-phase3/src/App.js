@@ -43,25 +43,26 @@ function App() {
     fetch(url + "/pets")
     .then(r => r.json())
     .then(data => setPetData(data))
-  }, []);
+  }, [showCreatePet]);
 
   useEffect(() => {
     fetch(url + "/tasks")
     .then(r => r.json())
     .then(data => setTaskData(data))
-  }, []);
+  }, [showCreateTask]);
 
   return (
     <div >
-
-      <Header />
-        
-        <Form.Select aria-label="user_select" id="user-dropdown">
-          <option>Which user are you?</option>
-          {userData.map(user => {
-                      return (<option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>)
-                    })}
-        </Form.Select>
+      <div id="page-header">
+        <Header />
+          
+          <Form.Select aria-label="user_select" id="user-dropdown">
+            <option>Which user are you?</option>
+            {userData.map(user => {
+                        return (<option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>)
+                      })}
+          </Form.Select>
+      </div>
       
       <Container>
         <Row>
@@ -70,13 +71,13 @@ function App() {
             <CreateHousehold show={showCreateHousehold} onHide={() => setShowCreateHousehold(false)} url={url} householdData={householdData}/>
           </Col>
           <Col id="pets" className="component">
-            <Pets showCreatePet={showCreatePet} setShowCreatePet={setShowCreatePet} />
+            <Pets showCreatePet={showCreatePet} setShowCreatePet={setShowCreatePet} petData={petData}/>
             <CreatePet show={showCreatePet} onHide={() => setShowCreatePet(false)} />
           </Col>
         </Row>
         <Row>
           <Col id="tasks" className="component">
-            <Tasks showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask} />
+            <Tasks showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask} taskData={taskData}/>
             <CreateTask show={showCreateTask} onHide={() => setShowCreateTask(false)} />
           </Col>
         </Row>
