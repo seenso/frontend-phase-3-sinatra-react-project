@@ -15,7 +15,8 @@ function Tasks({
   taskToDelete, 
   setTaskToDelete,
   currentUser,
-  currentHousehold
+  currentHousehold,
+  currentHouseholdPets
 }) {
 
   // useEffect(() => {
