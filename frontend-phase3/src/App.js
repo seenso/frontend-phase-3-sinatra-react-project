@@ -29,6 +29,7 @@ function App() {
 
   //Added state for the CURRENT user's household, householder members(users), household pets, and household tasks
   const [currentUser, setCurrentUser] = useState(1);
+  const [currentHousehold, setCurrentHousehold] = useState();
   const [currentHouseholdUsers, setCurrentHouseholdUsers] = useState();
   const [currentHouseholdPets, setCurrentHouseholdPets] = useState();
   const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
@@ -53,6 +54,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((r) => {
+        setCurrentHousehold(r.household_name)
         setCurrentHouseholdTasks(r.tasks);
       });
   }, [currentUser]);
@@ -118,6 +120,7 @@ function App() {
             <Household
               setShowCreateHousehold={setShowCreateHousehold}
               currentHouseholdUsers={currentHouseholdUsers}
+              currentHousehold={currentHousehold}
             />
             <CreateHousehold
               show={showCreateHousehold}
@@ -130,6 +133,7 @@ function App() {
             <Pets
               setShowCreatePet={setShowCreatePet}
               currentHouseholdPets={currentHouseholdPets}
+              currentHousehold={currentHousehold}
             />
             <CreatePet
               show={showCreatePet}
@@ -144,6 +148,7 @@ function App() {
               currentHouseholdTasks={currentHouseholdTasks}
               setCurrentHouseholdTasks={setCurrentHouseholdTasks}
               currentUser={currentUser}
+              currentHousehold={currentHousehold}
             />
             <CreateTask
               show={showCreateTask}

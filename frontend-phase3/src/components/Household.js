@@ -8,7 +8,8 @@ import Card from "react-bootstrap/Card";
 
 function Household({
   currentHouseholdUsers,
-  setShowCreateHousehold
+  setShowCreateHousehold,
+  currentHousehold
 }) {
   return (
     <Container>
@@ -16,7 +17,7 @@ function Household({
         <Col>
           <h1>
             {currentHouseholdUsers
-              ? currentHouseholdUsers.household_name
+              ? currentHousehold
               : "Household"}
           </h1>
         </Col>

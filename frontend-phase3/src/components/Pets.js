@@ -9,6 +9,7 @@ import Card from "react-bootstrap/Card";
 function Pets({
   setShowCreatePet,
   currentHouseholdPets,
+  currentHousehold
 }) {
   return (
     <Container>
@@ -16,7 +17,7 @@ function Pets({
         <Col>
           <h1>
             {currentHouseholdPets
-              ? `The Pets of ${currentHouseholdPets.household_name}`
+              ? `The Pets of ${currentHousehold}`
               : "Pets"}
           </h1>
         </Col>

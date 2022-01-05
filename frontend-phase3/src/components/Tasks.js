@@ -14,7 +14,8 @@ function Tasks({
   setCurrentHouseholdTasks,
   taskToDelete, 
   setTaskToDelete,
-  currentUser
+  currentUser,
+  currentHousehold
 }) {
 
   // useEffect(() => {
@@ -57,14 +58,13 @@ function Tasks({
     const formattedTime = `${hour}:${minute} ${amPm}`;
     return formattedTime;
   }
-
   return (
     <Container>
       <Row>
         <Col>
           <h1>
             {currentHouseholdTasks
-              ? `The Tasks of ${currentHouseholdTasks.household_name}`
+              ? `The Tasks of ${currentHousehold}`
               : "Tasks"}
           </h1>
         </Col>
