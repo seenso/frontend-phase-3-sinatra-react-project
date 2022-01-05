@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -8,11 +8,7 @@ import Card from "react-bootstrap/Card";
 
 function Household({
   currentHouseholdUsers,
-  showCreateHousehold,
-  setShowCreateHousehold,
-  householdData,
-  currentUser,
-  userData,
+  setShowCreateHousehold
 }) {
   return (
     <Container>
@@ -39,7 +35,7 @@ function Household({
             <Card.Body>
               <ListGroup variant="flush">
                 {currentHouseholdUsers
-                  ? currentHouseholdUsers.users.map((u) => {
+                  ? currentHouseholdUsers.map((u) => {
                       return (
                         <ListGroup.Item id="household">
                           {u.first_name}

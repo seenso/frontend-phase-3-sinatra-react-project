@@ -7,9 +7,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 
 function Pets({
-  showCreatePet,
   setShowCreatePet,
-  petData,
   currentHouseholdPets,
 }) {
   return (
@@ -33,7 +31,7 @@ function Pets({
           <Card.Body>
             <ListGroup variant="flush">
               {currentHouseholdPets
-                ? currentHouseholdPets.pets.map((p) => {
+                ? currentHouseholdPets.map((p) => {
                     return (
                       <ListGroup.Item id="pets">{p.first_name}</ListGroup.Item>
                     );

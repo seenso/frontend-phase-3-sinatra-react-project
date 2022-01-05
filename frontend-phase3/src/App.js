@@ -37,7 +37,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
       .then((r) => r.json())
       .then((r) => {
-        setCurrentHouseholdUsers(r);
+        setCurrentHouseholdUsers(r.users);
       });
   }, [currentUser]);
 
@@ -45,7 +45,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/pets`)
       .then((r) => r.json())
       .then((r) => {
-        setCurrentHouseholdPets(r);
+        setCurrentHouseholdPets(r.pets);
       });
   }, [currentUser]);
 
@@ -53,7 +53,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((r) => {
-        setCurrentHouseholdTasks(r);
+        setCurrentHouseholdTasks(r.tasks);
       });
   }, [currentUser]);
 
@@ -111,16 +111,12 @@ function App() {
           })}
         </Form.Select>
       </div>
-{/* A lot of the props being passed below are not needed anymore, should be safe to remove. */}
+      
       <Container>
         <Row>
           <Col id="household" className="component">
             <Household
-              showCreateHousehold={showCreateHousehold}
               setShowCreateHousehold={setShowCreateHousehold}
-              householdData={householdData}
-              currentUser={currentUser}
-              userData={userData}
               currentHouseholdUsers={currentHouseholdUsers}
             />
             <CreateHousehold
@@ -128,14 +124,11 @@ function App() {
               onHide={() => setShowCreateHousehold(false)}
               url={url}
               householdData={householdData}
-              householdData={householdData}
             />
           </Col>
           <Col id="pets" className="component">
             <Pets
-              showCreatePet={showCreatePet}
               setShowCreatePet={setShowCreatePet}
-              petData={petData}
               currentHouseholdPets={currentHouseholdPets}
             />
             <CreatePet
@@ -147,10 +140,10 @@ function App() {
         <Row>
           <Col id="tasks" className="component">
             <Tasks
-              showCreateTask={showCreateTask}
               setShowCreateTask={setShowCreateTask}
-              taskData={taskData}
               currentHouseholdTasks={currentHouseholdTasks}
+              setCurrentHouseholdTasks={setCurrentHouseholdTasks}
+              currentUser={currentUser}
             />
             <CreateTask
               show={showCreateTask}
