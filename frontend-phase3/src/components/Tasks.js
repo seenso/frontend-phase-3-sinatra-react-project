@@ -5,6 +5,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
+import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
+import { format } from "date-fns";
 
 function Tasks({
   showCreateTask,
@@ -23,6 +25,17 @@ function Tasks({
       },
       body: JSON.stringify(),
     });
+  }
+
+  function handleDate(date) {
+    console.log(date);
+    const year = parseInt(date.slice(0, 4));
+    const month = parseInt(date.slice(5, 7));
+    const day = parseInt(date.slice(8, 10));
+    const hour = parseInt(date.slice(12, 13));
+    const minute = parseInt(date.slice(15, 16));
+    const formattedDate = `${month}/${day}/${year}`;
+    return formattedDate;
   }
 
   return (
@@ -46,7 +59,36 @@ function Tasks({
       </Row>
       <Row>
         <Col>
-          <Card id="tasks">
+          {currentHouseholdTasks
+            ? currentHouseholdTasks.tasks.map((t) => {
+                return (
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src="holder.js/100px180?text=Image cap"
+                    />
+                    <Card.Body>
+                      <Card.Title>{t.task_name}</Card.Title>
+                      <Card.Text>
+                        Some quick example text to build on the card title and
+                        make up the bulk of the card's content.
+                      </Card.Text>
+                    </Card.Body>
+                    <ListGroup className="list-group-flush">
+                      <ListGroupItem>Cras justo odio</ListGroupItem>
+                      <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
+                      <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                    </ListGroup>
+                    <Card.Body>
+                      <Card.Link href="#">Card Link</Card.Link>
+                      <Card.Link href="#">Another Link</Card.Link>
+                    </Card.Body>
+                  </Card>
+                );
+              })
+            : "Please select your user from the dropdown on the top right."}
+
+          {/* <Card id="tasks">
             <Card.Body>
               <ListGroup variant="flush">
                 {currentHouseholdTasks
@@ -60,8 +102,8 @@ function Tasks({
                           {" | "}
                           {t.pet.first_name}
                           {" (pet) | "}
-                          {t.user.first_name}
-                          {" (user) | "}
+                          {handleDate(t.task_due_date)}
+                          {" (due_date) | "}
                           <button
                             data-taskid={t.id}
                             onClick={(e) => handleDeleteTask(e)}
@@ -74,7 +116,7 @@ function Tasks({
                   : "Please select your user from the dropdown on the top right."}
               </ListGroup>
             </Card.Body>
-          </Card>
+          </Card> */}
         </Col>
       </Row>
     </Container>
