@@ -1,5 +1,5 @@
 # Whose Turn Is It?
-This project is a communication tool to help household members coordinate the care of their pets. Care taking tasks can be assigned to household members and can be regularly scheduled for recurring tasks like feeding, walking, litter box scooping. One off tasks can also be created for tasks like vet appointments or to indicate that a pet is out somewhere with a household member (i.e. dog park).
+This "Whose Turn Is It?" project is a communication tool to help household members coordinate the care of their pets. Care taking tasks can be assigned to household members and can be regularly scheduled for recurring tasks like feeding, walking, litter box scooping. One off tasks can also be created for tasks like vet appointments or to indicate that a pet is out somewhere with a household member (i.e. dog park).
 
 It has a Sinatra API backend that uses Active Record to access and persist data in a database, which will be used by a separate React frontend that interacts with the database via the API.
 - This current repo is the React frontend
