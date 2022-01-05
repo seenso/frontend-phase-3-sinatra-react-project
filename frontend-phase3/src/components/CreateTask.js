@@ -8,7 +8,9 @@ import Col from "react-bootstrap/Col";
 
 function CreateTask(props) {
   const [recurring, setRecurring] = useState(false)
-  
+
+  // console.log("PROPS in CREATETASK", props)
+
   return (
     <Modal
       {...props}
@@ -28,7 +30,21 @@ function CreateTask(props) {
               <Form.Label>Pet</Form.Label>
               <Form.Select defaultValue="Choose...">
                 <option>Which pet is this for?</option>
-                <option>...</option>
+                {props.petData ? 
+                  props.petData.filter(p => p.household_id === props.currentHouseholdID).map((p) => {
+                    // console.log("PETPET", p)
+                    return (
+                      <option key={p.id} value={p.id}>{p.first_name}</option>
+                    );
+                  })
+
+                  : <option>NULL</option>
+                }
+                {/* {props.currentHouseholdPets.map((p) => {
+                    return (
+                      <option key={p.id} value={p.id}>{p.first_name}</option>
+                    );
+                  })} */}
               </Form.Select>
             </Form.Group>
           </Row>

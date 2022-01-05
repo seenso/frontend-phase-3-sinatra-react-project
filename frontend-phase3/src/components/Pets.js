@@ -9,15 +9,16 @@ import Card from "react-bootstrap/Card";
 function Pets({
   setShowCreatePet,
   currentHouseholdPets,
-  currentHousehold
+  currentHouseholdName
 }) {
+  
   return (
     <Container>
       <Row>
         <Col>
           <h1>
             {currentHouseholdPets
-              ? `The Pets of ${currentHousehold}`
+              ? `The Pets of ${currentHouseholdName}`
               : "Pets"}
           </h1>
         </Col>
@@ -34,7 +35,7 @@ function Pets({
               {currentHouseholdPets
                 ? currentHouseholdPets.map((p) => {
                     return (
-                      <ListGroup.Item id="pets">{p.first_name}</ListGroup.Item>
+                      <ListGroup.Item id="pets" key={p.id}>{p.first_name}</ListGroup.Item>
                     );
                   })
                 : "Please select your user from the dropdown on the top right."}

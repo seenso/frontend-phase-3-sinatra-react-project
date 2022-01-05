@@ -7,11 +7,14 @@ import Container from "react-bootstrap/Container";
 import CloseButton from "react-bootstrap/CloseButton";
 
 function CreateHousehold(props) {
+
+  console.log("CREATEHOUSEHOLD PROPS", props)
+  
   function handleFormSubmit(e) {
     e.preventDefault();
     const firstname = e.target[0].value;
     const lastname = e.target[1].value;
-    const householdId = e.target[2].value;
+    //const householdId = e.target[2].value;
 
     fetch(props.url + "/users", {
       method: "POST",
@@ -21,13 +24,22 @@ function CreateHousehold(props) {
       body: JSON.stringify({
         first_name: firstname,
         last_name: lastname,
-        household_id: householdId,
-      }),
+        household_id: props.currentHouseholdID,
+      })
     })
-      .then((r) => r.json())
-      .then((data) => console.log("Posted user: ", data));
+    .then((r) => r.json())
+    .then((data) => console.log("Posted user: ", data))
+    .then((r) => {
+        fetch(`http://localhost:9292/households/${props.currentHouseholdID}/users`)
+        .then((res) => res.json())
+        .then((users) => {
+          props.setCurrentHouseholdUsers(users);
+        })
+    });
+    props.onHide(false);
   }
-
+  
+  
   return (
     <Modal
       {...props}
@@ -75,23 +87,6 @@ function CreateHousehold(props) {
                 name="last_name"
                 placeholder="Enter last name"
               />
-            </Form.Group>
-          </Row>
-
-          <Row className="mb-3">
-            {/* NEED to make the household dropdown required */}
-            <Form.Group as={Col} controlId="formGridHousehold">
-              <Form.Label>Household</Form.Label>
-              <Form.Select name="last_name">
-                <option>Choose household name</option>
-                {props.householdData.map((household) => {
-                  return (
-                    <option key={household.id} value={household.id}>
-                      {household.household_name}
-                    </option>
-                  );
-                })}
-              </Form.Select>
             </Form.Group>
           </Row>
 

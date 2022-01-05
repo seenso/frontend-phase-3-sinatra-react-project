@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
 function Tasks({
   setShowCreateTask,
@@ -15,13 +15,8 @@ function Tasks({
   taskToDelete, 
   setTaskToDelete,
   currentUser,
-  currentHousehold,
-  currentHouseholdPets
+  currentHouseholdName
 }) {
-
-  // useEffect(() => {
-  //   ;
-  // }, [taskToDelete])
   
   function handleDeleteTask(e) {
     console.log("DELETE THIS", e.target.attributes[1].value)
@@ -65,7 +60,7 @@ function Tasks({
         <Col>
           <h1>
             {currentHouseholdTasks
-              ? `The Tasks of ${currentHousehold}`
+              ? `The Tasks of ${currentHouseholdName}`
               : "Tasks"}
           </h1>
         </Col>
@@ -83,7 +78,7 @@ function Tasks({
           {currentHouseholdTasks
             ? currentHouseholdTasks.map((t) => {
                 return (
-                  <Card>
+                  <Card key={t.id}>
                     <Card.Body>
                       <Card.Title>{t.task_name}</Card.Title>
                         {t.task_is_recurring.toString() === "true" ? 
