@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-function Tasks({ showCreateTask, setShowCreateTask }) {
+function Tasks({ showCreateTask, setShowCreateTask, taskData }) {
   return (
     <Container>
         <Row>
@@ -20,7 +20,9 @@ function Tasks({ showCreateTask, setShowCreateTask }) {
         <Row>
           <Col>
           <ul>
-            <li>Tasks go here</li>
+            {taskData.map(task => {
+                      return (<li key={task.id} value={task.id}>{task.task_name}</li>)
+                    })}
           </ul>
           </Col>
         </Row>

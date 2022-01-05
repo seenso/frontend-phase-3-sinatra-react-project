@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './App.css';
 
 // Bootstrap components
@@ -16,62 +16,81 @@ import CreateTask from "./components/CreateTask";
 import Header from "./components/Header";
 
 function App() {
-  const url = "http://localhost:9292/";
+  const url = "http://localhost:9292";
   
   const [showCreateHousehold, setShowCreateHousehold] = useState(false); 
   const [showCreatePet, setShowCreatePet] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
 
-  fetch(url)
-  .then(r => r.json())
-  .then(data => console.log("FETCH DATA", data));
+  const [householdData, sethouseholdData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const [petData, setPetData] = useState([]);
+  const [taskData, setTaskData] = useState([]);
+
+  const [currentUser, setCurrentUser] = useState(1);
+
+  useEffect(() => {
+    fetch(url + "/households")
+    .then(r => r.json())
+    .then(data => sethouseholdData(data))
+  }, []);
+
+  useEffect(() => {
+    fetch(url + "/users")
+    .then(r => r.json())
+    .then(data => setUserData(data))
+  }, [showCreateHousehold]);
+
+  useEffect(() => {
+    fetch(url + "/pets")
+    .then(r => r.json())
+    .then(data => setPetData(data))
+  }, [showCreatePet]);
+
+  useEffect(() => {
+    fetch(url + "/tasks")
+    .then(r => r.json())
+    .then(data => setTaskData(data))
+  }, [showCreateTask]);
+  
+  function handleUserChange(e) {
+    const userID = e.target.value;
+    const userObj = userData.find(user => user.id === parseInt(userID))
+
+    setCurrentUser(userObj);
+  }
 
   return (
     <div >
-
-      <Header />
-        
-        <Form.Select aria-label="user_select" id="user-dropdown">
+      <div id="header-container">
+        <Header />
+    
+        <Form.Select aria-label="user_select" id="user-dropdown" onChange={(e) => handleUserChange(e)}>
           <option>Which user are you?</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          {userData.map(user => {
+                      return (<option key={user.id} value={user.id}>{user.first_name} {user.last_name}</option>)
+                    })}
         </Form.Select>
+      </div>
       
       <Container>
         <Row>
           <Col id="household" className="component">
-            <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} />
-            <CreateHousehold show={showCreateHousehold} onHide={() => setShowCreateHousehold(false)} />
+            <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} householdData={householdData} currentUser={currentUser} userData={userData}/>
+            <CreateHousehold show={showCreateHousehold} onHide={() => setShowCreateHousehold(false)} url={url} householdData={householdData}/>
           </Col>
           <Col id="pets" className="component">
-            <Pets showCreatePet={showCreatePet} setShowCreatePet={setShowCreatePet} />
+            <Pets showCreatePet={showCreatePet} setShowCreatePet={setShowCreatePet} petData={petData}/>
             <CreatePet show={showCreatePet} onHide={() => setShowCreatePet(false)} />
           </Col>
         </Row>
         <Row>
           <Col id="tasks" className="component">
-            <Tasks showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask} />
+            <Tasks showCreateTask={showCreateTask} setShowCreateTask={setShowCreateTask} taskData={taskData}/>
             <CreateTask show={showCreateTask} onHide={() => setShowCreateTask(false)} />
           </Col>
         </Row>
       </Container>
-
-      {/* Below commented out code is the old App.js version for React components.
-      
-      <div id="household">
-        <Household showCreateHousehold={showCreateHousehold} setShowCreateHousehold={setShowCreateHousehold} />
-        <CreateHousehold
-        show={showCreateHousehold}
-        onHide={() => setShowCreateHousehold(false)}
-      />
-      </div>
-      <div id="pets">
-        <Pets />
-      </div>
-      <div id="tasks">
-        <Tasks />
-      </div> */}
     </div>
   );
 }

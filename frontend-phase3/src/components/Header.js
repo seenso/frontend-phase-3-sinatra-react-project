@@ -4,15 +4,15 @@ import Container from 'react-bootstrap/Container';
 
 function Header() {
   return (
-    <div id="header">
+    <div id="logo-header">
         <Navbar>
             <Container>
                 <Navbar.Brand>
                     <img
                         alt="logo"
                         src="../small-logo.jpg"
-                        width="30"
-                        height="30"
+                        width="50"
+                        height="50"
                         id="logo"
                         />{' '}
                             <span style={{color: "#3F559E"}}>Whose Turn Is It?</span>

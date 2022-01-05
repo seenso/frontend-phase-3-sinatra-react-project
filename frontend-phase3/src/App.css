@@ -2,15 +2,22 @@
   text-align: center;
 }
 
-.logo {
-   text-align: center;
- }
-
-#header {
+#logo-header {
   display: inline-block;
   text-align: center;
  }
 
+ #page-header {
+   width: auto;
+   margin: 5px 30px;
+ }
+
+#user-dropdown {
+  height: auto;
+  width: auto;
+  float: right;
+  margin-top: 10px;
+}
  .component {
    border-style: solid;
    padding: 10px;
