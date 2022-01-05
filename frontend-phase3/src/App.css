@@ -24,16 +24,29 @@
    margin: 5px;
  }
 
+ /* Match the BootStrap Cards and Lists with the existing background colors */
  #household {
    background-color: pink;
+ }
+
+ #household.card {
+  border-style: none;
  }
 
  #pets {
    background-color: lightblue;
  }
 
+ #pets.card {
+  border-style: none;
+ }
+
  #tasks {
    background-color: lightgreen;
+ }
+
+ #tasks.card {
+  border-style: none;
  }
 
 h1 {
