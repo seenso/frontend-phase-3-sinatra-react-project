@@ -1,34 +1,50 @@
 import React from "react";
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ListGroup from "react-bootstrap/ListGroup";
+import Card from "react-bootstrap/Card";
 
-function Pets({ showCreatePet, setShowCreatePet, petData }) {
-
+function Pets({
+  showCreatePet,
+  setShowCreatePet,
+  petData,
+  currentHouseholdPets,
+}) {
   return (
     <Container>
-        <Row>
-          <Col>
-            <h1>Pets</h1>
-          </Col>
-          <Col>
+      <Row>
+        <Col>
+          <h1>
+            {currentHouseholdPets
+              ? `The Pets of ${currentHouseholdPets.household_name}`
+              : "Pets"}
+          </h1>
+        </Col>
+        <Col>
           <Button onClick={() => setShowCreatePet(true)} className="create-btn">
             Create
           </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-          <ul>
-            {petData.map(pet => {
-                      return (<li key={pet.id} value={pet.id}>{pet.first_name}</li>)
-                    })}
-          </ul>
-          </Col>
-        </Row>
-      </Container>
+        </Col>
+      </Row>
+      <Row>
+        <Card id="pets">
+          <Card.Body>
+            <ListGroup variant="flush">
+              {currentHouseholdPets
+                ? currentHouseholdPets.pets.map((p) => {
+                    return (
+                      <ListGroup.Item id="pets">{p.first_name}</ListGroup.Item>
+                    );
+                  })
+                : "Please select your user from the dropdown on the top right."}
+            </ListGroup>
+          </Card.Body>
+        </Card>
+      </Row>
+    </Container>
   );
-};
+}
 
 export default Pets;
