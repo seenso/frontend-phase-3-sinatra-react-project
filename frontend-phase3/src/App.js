@@ -23,13 +23,13 @@ function App() {
   const [showCreateTask, setShowCreateTask] = useState(false);
 
   const [userData, setUserData] = useState([]);
-  const [householdData, sethouseholdData] = useState([]);
   const [petData, setPetData] = useState([]);
-  const [taskData, setTaskData] = useState([]);
+  // const [taskData, setTaskData] = useState([]);
 
   //Added state for the CURRENT user's household, householder members(users), household pets, and household tasks
-  const [currentUser, setCurrentUser] = useState(1);
-  const [currentHousehold, setCurrentHousehold] = useState();
+  const [currentUser, setCurrentUser] = useState(0);
+  const [currentHouseholdID, setCurrentHouseholdID] = useState();
+  const [currentHouseholdName, setCurrentHouseholdName] = useState();
   const [currentHouseholdUsers, setCurrentHouseholdUsers] = useState();
   const [currentHouseholdPets, setCurrentHouseholdPets] = useState();
   const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
@@ -38,6 +38,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
       .then((r) => r.json())
       .then((r) => {
+        setCurrentHouseholdID(r.id)
         setCurrentHouseholdUsers(r.users);
       });
   }, [currentUser]);
@@ -45,8 +46,8 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/pets`)
       .then((r) => r.json())
-      .then((r) => {
-        setCurrentHouseholdPets(r.pets);
+      .then((pets) => {
+        setCurrentHouseholdPets(pets);
       });
   }, [currentUser]);
 
@@ -54,7 +55,8 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((r) => {
-        setCurrentHousehold(r.household_name)
+        console.log("R IN APP", r)
+        setCurrentHouseholdName(r.household_name)
         setCurrentHouseholdTasks(r.tasks);
       });
   }, [currentUser]);
@@ -62,11 +64,12 @@ function App() {
   // These are needed to populate the user dropdown and the household dropdown(in CreateHousehold).
   // Need to configure the useState & useEffect to populate the pet dropdown in CreateTasks.
   // The taskData, setTaskData is probably unnescessary???
-  useEffect(() => {
-    fetch(url + "/households")
-      .then((r) => r.json())
-      .then((data) => sethouseholdData(data));
-  }, []);
+  
+  // useEffect(() => {
+  //   fetch(url + "/households")
+  //     .then((r) => r.json())
+  //     .then((data) => sethouseholdData(data));
+  // }, []);
 
   useEffect(() => {
     fetch(url + "/users")
@@ -74,17 +77,11 @@ function App() {
       .then((data) => setUserData(data));
   }, [showCreateHousehold]);
 
-  // useEffect(() => {
-  //   fetch(url + "/pets")
-  //   .then(r => r.json())
-  //   .then(data => setPetData(data))
-  // }, [showCreatePet]);
-
-  // useEffect(() => {
-  //   fetch(url + "/tasks")
-  //   .then(r => r.json())
-  //   .then(data => setTaskData(data))
-  // }, [showCreateTask]);
+  useEffect(() => {
+    fetch(url + "/pets")
+    .then(r => r.json())
+    .then(data => setPetData(data))
+  }, [showCreatePet]);
 
   function handleUserChange(e) {
     const userID = e.target.value;
@@ -97,6 +94,8 @@ function App() {
     <div>
       <div id="header-container">
         <Header />
+        {/* added below to track what the current house states are */}
+        {currentHouseholdID} {currentHouseholdName}
 
         <Form.Select
           aria-label="user_select"
@@ -113,6 +112,8 @@ function App() {
           })}
         </Form.Select>
       </div>
+
+      {currentUser === 0 ? <h1>Please select user.</h1> : 
       
       <Container>
         <Row>
@@ -120,24 +121,29 @@ function App() {
             <Household
               setShowCreateHousehold={setShowCreateHousehold}
               currentHouseholdUsers={currentHouseholdUsers}
-              currentHousehold={currentHousehold}
+              currentHouseholdName={currentHouseholdName}
             />
             <CreateHousehold
               show={showCreateHousehold}
               onHide={() => setShowCreateHousehold(false)}
               url={url}
-              householdData={householdData}
+              currentHouseholdID={currentHouseholdID}
+              currentHouseholdUsers={currentHouseholdUsers}
+              setCurrentHouseholdUsers={setCurrentHouseholdUsers}
             />
           </Col>
           <Col id="pets" className="component">
             <Pets
               setShowCreatePet={setShowCreatePet}
               currentHouseholdPets={currentHouseholdPets}
-              currentHousehold={currentHousehold}
+              currentHouseholdName={currentHouseholdName}
             />
             <CreatePet
               show={showCreatePet}
               onHide={() => setShowCreatePet(false)}
+              currentHouseholdID={currentHouseholdID}
+              currentHouseholdPets={currentHouseholdPets}
+              setCurrentHouseholdPets={setCurrentHouseholdPets}
             />
           </Col>
         </Row>
@@ -148,15 +154,19 @@ function App() {
               currentHouseholdTasks={currentHouseholdTasks}
               setCurrentHouseholdTasks={setCurrentHouseholdTasks}
               currentUser={currentUser}
-              currentHousehold={currentHousehold}
+              currentHouseholdName={currentHouseholdName}
             />
             <CreateTask
               show={showCreateTask}
               onHide={() => setShowCreateTask(false)}
+              currentHouseholdPets={currentHouseholdPets}
+              currentHouseholdID={currentHouseholdID}
+              currentHouseholdUsers={currentHouseholdUsers}
+              setCurrentHouseholdTasks={setCurrentHouseholdTasks}
             />
           </Col>
         </Row>
-      </Container>
+      </Container> }
     </div>
   );
 }

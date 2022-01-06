@@ -9,15 +9,16 @@ import Card from "react-bootstrap/Card";
 function Household({
   currentHouseholdUsers,
   setShowCreateHousehold,
-  currentHousehold
+  currentHouseholdName
 }) {
+  
   return (
     <Container>
       <Row>
         <Col>
           <h1>
             {currentHouseholdUsers
-              ? currentHousehold
+              ? currentHouseholdName
               : "Household"}
           </h1>
         </Col>
@@ -38,8 +39,8 @@ function Household({
                 {currentHouseholdUsers
                   ? currentHouseholdUsers.map((u) => {
                       return (
-                        <ListGroup.Item id="household">
-                          {u.first_name}
+                        <ListGroup.Item id="household" key={u.id}>
+                          {u.first_name} {u.last_name}
                         </ListGroup.Item>
                       );
                     })
@@ -59,7 +60,6 @@ export default Household;
 //     return (<li key={user.id} value={user.id}>{user.first_name} {user.last_name}</li>)
 //       })
 
-{
   /* {currentHousehold.map(household => {
                       return (<li key={household.id} value={household.id}>{household.users.map(user => {
                         return(
@@ -67,7 +67,7 @@ export default Household;
                           )
                           })}</li>)
                     })} */
-}
+
 
 // let currentHousehold
 

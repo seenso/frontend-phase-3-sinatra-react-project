@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -6,7 +6,7 @@ import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-import { format } from "date-fns";
+// import { format } from "date-fns";
 
 function Tasks({
   setShowCreateTask,
@@ -15,15 +15,13 @@ function Tasks({
   taskToDelete, 
   setTaskToDelete,
   currentUser,
-  currentHousehold
+  currentHouseholdName
 }) {
 
-  // useEffect(() => {
-  //   ;
-  // }, [taskToDelete])
+  // console.log("currentHouseholdTasks", currentHouseholdTasks)
   
   function handleDeleteTask(e) {
-    console.log("DELETE THIS", e.target.attributes[1].value)
+    // console.log("DELETE THIS", e.target.attributes[1].value)
 
     fetch(`http://localhost:9292/tasks/${parseInt(e.target.attributes[1].value)}`, {
         method: "DELETE",
@@ -35,8 +33,9 @@ function Tasks({
         console.log(r)
           fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
           .then((r) => r.json())
-          .then((r) => {
-          setCurrentHouseholdTasks(r.tasks);
+          .then((tasks) => {
+            console.log("TASKS FROM TASKS MOD", tasks)
+          // setCurrentHouseholdTasks(tasks);
       });
       })
       .catch(msg => console.log("TASKTODELETE .catch msg", msg))
@@ -64,7 +63,7 @@ function Tasks({
         <Col>
           <h1>
             {currentHouseholdTasks
-              ? `The Tasks of ${currentHousehold}`
+              ? `The Tasks of ${currentHouseholdName}`
               : "Tasks"}
           </h1>
         </Col>
@@ -78,11 +77,11 @@ function Tasks({
         </Col>
       </Row>
       <Row>
-        <Col>
+        {/* <Col>
           {currentHouseholdTasks
-            ? currentHouseholdTasks.map((t) => {
+            ? currentHouseholdTasks.tasks.map((t) => {
                 return (
-                  <Card>
+                  <Card key={t.id}>
                     <Card.Body>
                       <Card.Title>{t.task_name}</Card.Title>
                         {t.task_is_recurring.toString() === "true" ? 
@@ -106,7 +105,7 @@ function Tasks({
                 );
               })
             : "Please select your user from the dropdown on the top right."}
-        </Col>
+        </Col> */}
       </Row>
     </Container>
   );
