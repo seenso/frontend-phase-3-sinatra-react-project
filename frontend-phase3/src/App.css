@@ -1,10 +1,7 @@
-.App {
-  text-align: center;
-}
-
 #logo-header {
   display: inline-block;
   text-align: center;
+  
  }
 
  #page-header {
@@ -24,26 +21,35 @@
    margin: 5px;
  }
 
+ .card {
+   display:inline-block;
+   /* padding:  */
+  } 
+
  /* Match the BootStrap Cards and Lists with the existing background colors */
- #household {
+ /* #household {
    background-color: pink;
- }
+ } */
 
  #household.card {
   border-style: none;
  }
 
- #pets {
+ /* #pets {
    background-color: lightblue;
- }
+ } */
 
  #pets.card {
   border-style: none;
+}
+
+#pet-item {
+   padding: 0rem;
  }
 
- #tasks {
+ /* #tasks {
    background-color: lightgreen;
- }
+ } */
 
  #tasks.card {
   border-style: none;
@@ -53,6 +59,47 @@ h1 {
   color: #3F559E;
   float: left;
 }
+
+h4 {
+  color: #C71C81;
+  margin-top: 0.5rem;
+}
+
+#pet-description {
+  margin-top: 0.5rem;
+}
  .create-btn {
    float: right;
  }
+ 
+ @media (min-width: 34em) {
+  .card-columns {
+      -webkit-column-count: 2;
+      -moz-column-count: 2;
+      column-count: 2;
+  }
+}
+
+@media (min-width: 48em) {
+  .card-columns {
+      -webkit-column-count: 3;
+      -moz-column-count: 3;
+      column-count: 3;
+  }
+}
+
+@media (min-width: 62em) {
+  .card-columns {
+      -webkit-column-count: 4;
+      -moz-column-count: 4;
+      column-count: 4;
+  }
+}
+
+@media (min-width: 75em) {
+  .card-columns {
+      -webkit-column-count: 5;
+      -moz-column-count: 5;
+      column-count: 5;
+  }
+}
