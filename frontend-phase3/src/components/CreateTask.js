@@ -11,7 +11,7 @@ function CreateTask(props) {
   //console.log("CREATETASK PROPS", props)
 
   function handleSubmit(e) {
-    // console.log("CREATETASK handlesubmit e", e)
+    //console.log("CREATETASK handlesubmit e", e)
     e.preventDefault(e);
 
     const pet = e.target[0].value; // string type
@@ -55,7 +55,11 @@ function CreateTask(props) {
           .then((res) => res.json())
           .then((tasks) => {
             // console.log("new list of tasks", tasks)
-            props.setCurrentHouseholdTasks(tasks);
+            //sort tasks by due date
+
+            //set tasks
+            // const sortedTasks = props.sortTasksByDueDate(tasks.tasks)
+            props.setCurrentHouseholdTasks(tasks.tasks);
           });
       });
     props.onHide(false);
@@ -138,7 +142,7 @@ function CreateTask(props) {
 
             <Form.Group as={Col} required controlId="dueDate">
               <Form.Label>Due Date</Form.Label>
-              <Form.Control placeholder="Enter due date" />
+              <Form.Control placeholder="Enter due date" type="date"/>
             </Form.Group>
           </Row>
 
@@ -157,21 +161,15 @@ function CreateTask(props) {
               </Row>
 
               <Row className="mb-2">
-                <Form.Group as={Col} required controlId="startDate">
+                <Form.Group as={Col} required controlId="startDate" >
                   <Form.Label>Start Date</Form.Label>
-                  <Form.Control placeholder="Enter due date" />
+                  <Form.Control type="date" placeholder="Enter due date" />
                 </Form.Group>
 
                 <Form.Group as={Col} required controlId="endDate">
                   <Form.Label>End Date</Form.Label>
-                  <Form.Control placeholder="Enter end date" />
+                  <Form.Control type="date" placeholder="Enter end date" />
                 </Form.Group>
-
-                {/* invisible shit */}
-                {/* <Form.Group as={Col} controlId="householdId">
-                  <Form.Label>Household ID</Form.Label>
-                  <Form.Control value={props} />
-                </Form.Group> */}
               </Row>
             </>
           ) : null}

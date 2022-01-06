@@ -63,10 +63,10 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
-      .then((r) => {
-        // console.log("R IN APP", r);
-        setCurrentHouseholdName(r.household_name);
-        setCurrentHouseholdTasks(r.tasks);
+      .then((tasks) => {
+        // console.log("IS THIS MY TASKS???", tasks)
+        setCurrentHouseholdName(tasks[0].household.household_name);
+        setCurrentHouseholdTasks(tasks);
       });
   }, [currentUser]);
 
@@ -89,6 +89,27 @@ function App() {
     const userObj = userData.find((user) => user.id === parseInt(userID));
 
     setCurrentUser(userObj);
+  }
+
+  function sortTasksByDueDate(tasks) {
+    //tasks is an arr of objs
+    console.log("TASKS in sortTasksByDueDate", tasks); //arr of task objs
+    const sortedTasks = tasks.sort(function(a, b) {
+      var keyA = new Date(a.task_due_date),
+        keyB = new Date(b.task_due_date);
+
+        console.log("sortTasksByDueDate")
+        console.log("A", keyA); // Thu Feb 10 2022 15:00:00 GMT-0900 (Alaska Standard Time)
+        console.log("B", keyB)
+
+      // Compare the 2 dates
+      if (keyA < keyB) return -1;
+      if (keyA > keyB) return 1;
+      return 0;
+    });
+
+    console.log("sortedTasks", sortedTasks)
+
   }
 
   return (
@@ -163,7 +184,9 @@ function App() {
                 currentHouseholdTasks={currentHouseholdTasks}
                 setCurrentHouseholdTasks={setCurrentHouseholdTasks}
                 currentUser={currentUser}
+                currentHouseholdUsers={currentHouseholdUsers}
                 currentHouseholdName={currentHouseholdName}
+                sortTasksByDueDate={sortTasksByDueDate}
               />
               <CreateTask
                 show={showCreateTask}
@@ -172,6 +195,7 @@ function App() {
                 currentHouseholdID={currentHouseholdID}
                 currentHouseholdUsers={currentHouseholdUsers}
                 setCurrentHouseholdTasks={setCurrentHouseholdTasks}
+                sortTasksByDueDate={sortTasksByDueDate}
               />
             </Col>
           </Row>
