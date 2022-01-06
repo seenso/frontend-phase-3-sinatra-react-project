@@ -9,18 +9,13 @@ import Card from "react-bootstrap/Card";
 function Household({
   currentHouseholdUsers,
   setShowCreateHousehold,
-  currentHouseholdName
+  currentHouseholdName,
 }) {
-  
   return (
     <Container>
       <Row>
         <Col>
-          <h1>
-            {currentHouseholdUsers
-              ? currentHouseholdName
-              : "Household"}
-          </h1>
+          <h1>{currentHouseholdUsers ? currentHouseholdName : "Household"}</h1>
         </Col>
         <Col>
           <Button
@@ -32,23 +27,26 @@ function Household({
         </Col>
       </Row>
       <Row>
-        <Col>
-          <Card id="household">
-            <Card.Body>
-              <ListGroup variant="flush">
-                {currentHouseholdUsers
-                  ? currentHouseholdUsers.map((u) => {
-                      return (
-                        <ListGroup.Item id="household" key={u.id}>
-                          {u.first_name} {u.last_name}
-                        </ListGroup.Item>
-                      );
-                    })
-                  : "Please select your user from the dropdown on the top right."}
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
+              {currentHouseholdUsers
+                ? currentHouseholdUsers.map((u) => {
+                    return (
+                      <Card
+                        style={{ width: "10rem" }}
+                        border="primary"
+                        id="household"
+                        key={u.id}
+                        
+                      >
+                        <Card.Img variant="top" src="./profile-pic.png" />
+                        <Card.Body>
+                          <Card.Title className="d-flex justify-content-center">
+                            <span style={{color:"#C71C81"}}>{u.first_name} {u.last_name}</span>
+                          </Card.Title>
+                        </Card.Body>
+                      </Card>
+                    );
+                  })
+                : "Please select your user from the dropdown on the top right."}
       </Row>
     </Container>
   );
@@ -60,14 +58,13 @@ export default Household;
 //     return (<li key={user.id} value={user.id}>{user.first_name} {user.last_name}</li>)
 //       })
 
-  /* {currentHousehold.map(household => {
+/* {currentHousehold.map(household => {
                       return (<li key={household.id} value={household.id}>{household.users.map(user => {
                         return(
                           <li>user.first_name</li>
                           )
                           })}</li>)
                     })} */
-
 
 // let currentHousehold
 

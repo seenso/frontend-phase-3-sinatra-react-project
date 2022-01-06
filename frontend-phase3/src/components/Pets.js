@@ -30,11 +30,14 @@ function Pets({
       <Row>
         <Card id="pets">
           <Card.Body>
-            <ListGroup variant="flush">
+            <ListGroup variant="flush" my-auto>
               {currentHouseholdPets
                 ? currentHouseholdPets.map((p) => {
                     return (
-                      <ListGroup.Item id="pets" key={p.id}>{p.first_name}, {p.species}, {p.age}</ListGroup.Item>
+                      <ListGroup.Item id="pet-item" key={p.id} className="d-flex justify-content-between align-items-start" >
+                        <h4>{p.first_name}</h4> 
+                        <p id="pet-description">{p.species.charAt(0).toUpperCase() + p.species.slice(1)}, {p.age}</p>
+                        </ListGroup.Item>
                     );
                   })
                 : "Please select your user from the dropdown on the top right."}

@@ -14,6 +14,7 @@ import CreatePet from "./components/CreatePet";
 import Tasks from "./components/Tasks";
 import CreateTask from "./components/CreateTask";
 import Header from "./components/Header";
+import SplashPage from "./components/SplashPage";
 
 function App() {
   const url = "http://localhost:9292";
@@ -94,8 +95,6 @@ function App() {
     <div>
       <div id="header-container">
         <Header />
-        {/* added below to track what the current house states are */}
-        {currentHouseholdID} {currentHouseholdName}
 
         <Form.Select
           aria-label="user_select"
@@ -113,7 +112,7 @@ function App() {
         </Form.Select>
       </div>
 
-      {currentUser === 0 ? <h1>Please select user.</h1> : 
+      {currentUser === 0 ? <SplashPage /> : 
       
       <Container>
         <Row>
