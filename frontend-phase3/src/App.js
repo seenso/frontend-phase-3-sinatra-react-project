@@ -55,6 +55,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((r) => {
+        console.log("R IN APP", r)
         setCurrentHouseholdName(r.household_name)
         setCurrentHouseholdTasks(r.tasks);
       });
@@ -93,6 +94,8 @@ function App() {
     <div>
       <div id="header-container">
         <Header />
+        {/* added below to track what the current house states are */}
+        {currentHouseholdID} {currentHouseholdName}
 
         <Form.Select
           aria-label="user_select"
@@ -156,8 +159,10 @@ function App() {
             <CreateTask
               show={showCreateTask}
               onHide={() => setShowCreateTask(false)}
-              petData={petData}
+              currentHouseholdPets={currentHouseholdPets}
               currentHouseholdID={currentHouseholdID}
+              currentHouseholdUsers={currentHouseholdUsers}
+              setCurrentHouseholdTasks={setCurrentHouseholdTasks}
             />
           </Col>
         </Row>

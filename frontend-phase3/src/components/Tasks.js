@@ -17,9 +17,11 @@ function Tasks({
   currentUser,
   currentHouseholdName
 }) {
+
+  // console.log("currentHouseholdTasks", currentHouseholdTasks)
   
   function handleDeleteTask(e) {
-    console.log("DELETE THIS", e.target.attributes[1].value)
+    // console.log("DELETE THIS", e.target.attributes[1].value)
 
     fetch(`http://localhost:9292/tasks/${parseInt(e.target.attributes[1].value)}`, {
         method: "DELETE",
@@ -31,8 +33,9 @@ function Tasks({
         console.log(r)
           fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
           .then((r) => r.json())
-          .then((r) => {
-          setCurrentHouseholdTasks(r.tasks);
+          .then((tasks) => {
+            console.log("TASKS FROM TASKS MOD", tasks)
+          // setCurrentHouseholdTasks(tasks);
       });
       })
       .catch(msg => console.log("TASKTODELETE .catch msg", msg))
@@ -74,9 +77,9 @@ function Tasks({
         </Col>
       </Row>
       <Row>
-        <Col>
+        {/* <Col>
           {currentHouseholdTasks
-            ? currentHouseholdTasks.map((t) => {
+            ? currentHouseholdTasks.tasks.map((t) => {
                 return (
                   <Card key={t.id}>
                     <Card.Body>
@@ -102,7 +105,7 @@ function Tasks({
                 );
               })
             : "Please select your user from the dropdown on the top right."}
-        </Col>
+        </Col> */}
       </Row>
     </Container>
   );
