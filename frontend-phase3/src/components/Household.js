@@ -40,7 +40,7 @@ function Household({
                   ? currentHouseholdUsers.map((u) => {
                       return (
                         <ListGroup.Item id="household" key={u.id}>
-                          {u.first_name}
+                          {u.first_name} {u.last_name}
                         </ListGroup.Item>
                       );
                     })

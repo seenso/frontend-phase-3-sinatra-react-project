@@ -46,8 +46,8 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/pets`)
       .then((r) => r.json())
-      .then((r) => {
-        setCurrentHouseholdPets(r.pets);
+      .then((pets) => {
+        setCurrentHouseholdPets(pets);
       });
   }, [currentUser]);
 
@@ -138,6 +138,9 @@ function App() {
             <CreatePet
               show={showCreatePet}
               onHide={() => setShowCreatePet(false)}
+              currentHouseholdID={currentHouseholdID}
+              currentHouseholdPets={currentHouseholdPets}
+              setCurrentHouseholdPets={setCurrentHouseholdPets}
             />
           </Col>
         </Row>

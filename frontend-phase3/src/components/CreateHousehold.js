@@ -7,14 +7,11 @@ import Container from "react-bootstrap/Container";
 import CloseButton from "react-bootstrap/CloseButton";
 
 function CreateHousehold(props) {
-
-  console.log("CREATEHOUSEHOLD PROPS", props)
   
   function handleFormSubmit(e) {
     e.preventDefault();
     const firstname = e.target[0].value;
     const lastname = e.target[1].value;
-    //const householdId = e.target[2].value;
 
     fetch(props.url + "/users", {
       method: "POST",

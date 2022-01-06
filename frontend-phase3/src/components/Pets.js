@@ -11,7 +11,6 @@ function Pets({
   currentHouseholdPets,
   currentHouseholdName
 }) {
-  
   return (
     <Container>
       <Row>
@@ -35,7 +34,7 @@ function Pets({
               {currentHouseholdPets
                 ? currentHouseholdPets.map((p) => {
                     return (
-                      <ListGroup.Item id="pets" key={p.id}>{p.first_name}</ListGroup.Item>
+                      <ListGroup.Item id="pets" key={p.id}>{p.first_name}, {p.species}, {p.age}</ListGroup.Item>
                     );
                   })
                 : "Please select your user from the dropdown on the top right."}
