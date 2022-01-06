@@ -19,13 +19,19 @@ import SplashPage from "./components/SplashPage";
 function App() {
   const url = "http://localhost:9292";
 
+  const [showAddNewHouseholdMember, setShowAddNewHouseholdMember] =
+    useState(false);
+
+  function toggleShowAddNewHouseholdMember() {
+    setShowAddNewHouseholdMember(!showAddNewHouseholdMember);
+  }
+
   const [showCreateHousehold, setShowCreateHousehold] = useState(false);
   const [showCreatePet, setShowCreatePet] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
 
   const [userData, setUserData] = useState([]);
   const [petData, setPetData] = useState([]);
-  // const [taskData, setTaskData] = useState([]);
 
   //Added state for the CURRENT user's household, householder members(users), household pets, and household tasks
   const [currentUser, setCurrentUser] = useState(0);
@@ -39,7 +45,7 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
       .then((r) => r.json())
       .then((r) => {
-        setCurrentHouseholdID(r.id)
+        setCurrentHouseholdID(r.id);
         setCurrentHouseholdUsers(r.users);
       });
   }, [currentUser]);
@@ -56,21 +62,13 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((r) => {
-        console.log("R IN APP", r)
-        setCurrentHouseholdName(r.household_name)
+        console.log("R IN APP", r);
+        setCurrentHouseholdName(r.household_name);
         setCurrentHouseholdTasks(r.tasks);
       });
   }, [currentUser]);
 
-  // These are needed to populate the user dropdown and the household dropdown(in CreateHousehold).
-  // Need to configure the useState & useEffect to populate the pet dropdown in CreateTasks.
-  // The taskData, setTaskData is probably unnescessary???
-  
-  // useEffect(() => {
-  //   fetch(url + "/households")
-  //     .then((r) => r.json())
-  //     .then((data) => sethouseholdData(data));
-  // }, []);
+  // These are needed to populate the user dropdown and the pets dropdown(in CreateTasks).
 
   useEffect(() => {
     fetch(url + "/users")
@@ -80,8 +78,8 @@ function App() {
 
   useEffect(() => {
     fetch(url + "/pets")
-    .then(r => r.json())
-    .then(data => setPetData(data))
+      .then((r) => r.json())
+      .then((data) => setPetData(data));
   }, [showCreatePet]);
 
   function handleUserChange(e) {
@@ -96,6 +94,7 @@ function App() {
       <div id="header-container">
         <Header />
 
+        {/* Put this form in its own component!? */}
         <Form.Select
           aria-label="user_select"
           id="user-dropdown"
@@ -112,60 +111,70 @@ function App() {
         </Form.Select>
       </div>
 
-      {currentUser === 0 ? <SplashPage /> : 
-      
-      <Container>
-        <Row>
-          <Col id="household" className="component">
-            <Household
-              setShowCreateHousehold={setShowCreateHousehold}
-              currentHouseholdUsers={currentHouseholdUsers}
-              currentHouseholdName={currentHouseholdName}
-            />
-            <CreateHousehold
-              show={showCreateHousehold}
-              onHide={() => setShowCreateHousehold(false)}
-              url={url}
-              currentHouseholdID={currentHouseholdID}
-              currentHouseholdUsers={currentHouseholdUsers}
-              setCurrentHouseholdUsers={setCurrentHouseholdUsers}
-            />
-          </Col>
-          <Col id="pets" className="component">
-            <Pets
-              setShowCreatePet={setShowCreatePet}
-              currentHouseholdPets={currentHouseholdPets}
-              currentHouseholdName={currentHouseholdName}
-            />
-            <CreatePet
-              show={showCreatePet}
-              onHide={() => setShowCreatePet(false)}
-              currentHouseholdID={currentHouseholdID}
-              currentHouseholdPets={currentHouseholdPets}
-              setCurrentHouseholdPets={setCurrentHouseholdPets}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col id="tasks" className="component">
-            <Tasks
-              setShowCreateTask={setShowCreateTask}
-              currentHouseholdTasks={currentHouseholdTasks}
-              setCurrentHouseholdTasks={setCurrentHouseholdTasks}
-              currentUser={currentUser}
-              currentHouseholdName={currentHouseholdName}
-            />
-            <CreateTask
-              show={showCreateTask}
-              onHide={() => setShowCreateTask(false)}
-              currentHouseholdPets={currentHouseholdPets}
-              currentHouseholdID={currentHouseholdID}
-              currentHouseholdUsers={currentHouseholdUsers}
-              setCurrentHouseholdTasks={setCurrentHouseholdTasks}
-            />
-          </Col>
-        </Row>
-      </Container> }
+      {/* Could we move this whole ternerary to a new component? */}
+      {currentUser === 0 ? (
+        <SplashPage />
+      ) : (
+        <Container>
+          <Row>
+            <Col id="household" className="component">
+              <Household
+                setShowCreateHousehold={setShowCreateHousehold}
+                currentHouseholdUsers={currentHouseholdUsers}
+                currentHouseholdName={currentHouseholdName}
+                toggleShowAddNewHouseholdMember={
+                  toggleShowAddNewHouseholdMember
+                }
+                showAddNewHouseholdMember={showAddNewHouseholdMember}
+              />
+              <CreateHousehold
+                show={showCreateHousehold}
+                onHide={() => setShowCreateHousehold(false)}
+                url={url}
+                currentHouseholdID={currentHouseholdID}
+                currentHouseholdUsers={currentHouseholdUsers}
+                setCurrentHouseholdUsers={setCurrentHouseholdUsers}
+                toggleShowAddNewHouseholdMember={
+                  toggleShowAddNewHouseholdMember
+                }
+              />
+            </Col>
+            <Col id="pets" className="component">
+              <Pets
+                setShowCreatePet={setShowCreatePet}
+                currentHouseholdPets={currentHouseholdPets}
+                currentHouseholdName={currentHouseholdName}
+              />
+              <CreatePet
+                show={showCreatePet}
+                onHide={() => setShowCreatePet(false)}
+                currentHouseholdID={currentHouseholdID}
+                currentHouseholdPets={currentHouseholdPets}
+                setCurrentHouseholdPets={setCurrentHouseholdPets}
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col id="tasks" className="component">
+              <Tasks
+                setShowCreateTask={setShowCreateTask}
+                currentHouseholdTasks={currentHouseholdTasks}
+                setCurrentHouseholdTasks={setCurrentHouseholdTasks}
+                currentUser={currentUser}
+                currentHouseholdName={currentHouseholdName}
+              />
+              <CreateTask
+                show={showCreateTask}
+                onHide={() => setShowCreateTask(false)}
+                currentHouseholdPets={currentHouseholdPets}
+                currentHouseholdID={currentHouseholdID}
+                currentHouseholdUsers={currentHouseholdUsers}
+                setCurrentHouseholdTasks={setCurrentHouseholdTasks}
+              />
+            </Col>
+          </Row>
+        </Container>
+      )}
     </div>
   );
 }

@@ -25,7 +25,7 @@ function CreateTask(props) {
     // const currentHouseID = e.target[9].value; // string type
 
     // console.log("CHECK TYPES IN CREATETASK", "houseid", typeof currentHouseID, "petid", typeof pet, "userid", typeof assignedUser)
-    console.log("CURRENTHOUSEID", props.currentHouseholdID)
+    console.log("CURRENTHOUSEID", props.currentHouseholdID);
 
     fetch("http://localhost:9292/tasks", {
       method: "POST",
@@ -42,21 +42,22 @@ function CreateTask(props) {
         task_frequency: frequency,
         task_start_date: start_date,
         task_end_date: end_date,
-        task_location: location
-        
-      })
+        task_location: location,
+      }),
     })
-    .then((r) => r.json())
-    .then((data) => console.log("Posted task: ", data))
+      .then((r) => r.json())
+      .then((data) => console.log("Posted task: ", data))
 
-    .then((r) => {
-      fetch(`http://localhost:9292/households/${props.currentHouseholdID}/tasks`)
-      .then((res) => res.json())
-      .then((tasks) => {
-        // console.log("new list of tasks", tasks)
-        props.setCurrentHouseholdTasks(tasks);
-      })
-    });
+      .then((r) => {
+        fetch(
+          `http://localhost:9292/households/${props.currentHouseholdID}/tasks`
+        )
+          .then((res) => res.json())
+          .then((tasks) => {
+            // console.log("new list of tasks", tasks)
+            props.setCurrentHouseholdTasks(tasks);
+          });
+      });
     props.onHide(false);
   }
 
@@ -80,14 +81,13 @@ function CreateTask(props) {
               <Form.Select defaultValue="Choose...">
                 <option>Which pet is this for?</option>
                 {props.currentHouseholdPets ? (
-                  props.currentHouseholdPets
-                    .map((p) => {
-                      return (
-                        <option key={p.id} value={p.id}>
-                          {p.first_name}
-                        </option>
-                      );
-                    })
+                  props.currentHouseholdPets.map((p) => {
+                    return (
+                      <option key={p.id} value={p.id}>
+                        {p.first_name}
+                      </option>
+                    );
+                  })
                 ) : (
                   <option>NULL</option>
                 )}
@@ -101,22 +101,19 @@ function CreateTask(props) {
               <Form.Select defaultValue="Choose...">
                 <option>Which Person is this task for?</option>
                 {props.currentHouseholdUsers ? (
-                  props.currentHouseholdUsers
-                    .map((u) => {
-                      return (
-                        <option key={u.id} value={u.id}>
-                          {u.first_name} {u.last_name}
-                        </option>
-                      );
-                    })
+                  props.currentHouseholdUsers.map((u) => {
+                    return (
+                      <option key={u.id} value={u.id}>
+                        {u.first_name} {u.last_name}
+                      </option>
+                    );
+                  })
                 ) : (
                   <option>NULL</option>
                 )}
               </Form.Select>
             </Form.Group>
           </Row>
-
-
 
           <Row className="mb-3">
             <Form.Group as={Col} controlId="taskName">
@@ -125,28 +122,25 @@ function CreateTask(props) {
             </Form.Group>
 
             <Form.Group as={Col} className="mb-3" controlId="recurring">
-            <Form.Label>Recurring?</Form.Label>
-            <Form.Check
-              type="checkbox"
-              onChange={() => setRecurring(!recurring)}
-            />
-          </Form.Group>
+              <Form.Label>Recurring?</Form.Label>
+              <Form.Check
+                type="checkbox"
+                onChange={() => setRecurring(!recurring)}
+              />
+            </Form.Group>
           </Row>
 
           <Row className="mb-2">
-            <Form.Group as={Col} controlId="location" >
+            <Form.Group as={Col} controlId="location">
               <Form.Label>Location</Form.Label>
               <Form.Control placeholder="Where's this happening?" />
             </Form.Group>
 
-    
             <Form.Group as={Col} required controlId="dueDate">
-                  <Form.Label>Due Date</Form.Label>
-                  <Form.Control placeholder="Enter due date" />
-                </Form.Group>
-                  </Row>
-
-          
+              <Form.Label>Due Date</Form.Label>
+              <Form.Control placeholder="Enter due date" />
+            </Form.Group>
+          </Row>
 
           {recurring ? (
             <>
@@ -163,8 +157,6 @@ function CreateTask(props) {
               </Row>
 
               <Row className="mb-2">
-                
-
                 <Form.Group as={Col} required controlId="startDate">
                   <Form.Label>Start Date</Form.Label>
                   <Form.Control placeholder="Enter due date" />
@@ -175,7 +167,7 @@ function CreateTask(props) {
                   <Form.Control placeholder="Enter end date" />
                 </Form.Group>
 
-            {/* invisible shit */}
+                {/* invisible shit */}
                 {/* <Form.Group as={Col} controlId="householdId">
                   <Form.Label>Household ID</Form.Label>
                   <Form.Control value={props} />

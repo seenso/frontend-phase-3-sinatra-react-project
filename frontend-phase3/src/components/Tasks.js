@@ -12,33 +12,37 @@ function Tasks({
   setShowCreateTask,
   currentHouseholdTasks,
   setCurrentHouseholdTasks,
-  taskToDelete, 
+  taskToDelete,
   setTaskToDelete,
   currentUser,
-  currentHouseholdName
+  currentHouseholdName,
 }) {
-
   // console.log("currentHouseholdTasks", currentHouseholdTasks)
-  
+
   function handleDeleteTask(e) {
     // console.log("DELETE THIS", e.target.attributes[1].value)
 
-    fetch(`http://localhost:9292/tasks/${parseInt(e.target.attributes[1].value)}`, {
+    fetch(
+      `http://localhost:9292/tasks/${parseInt(e.target.attributes[1].value)}`,
+      {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
-        }
-      })
+        },
+      }
+    )
       .then((r) => {
-        console.log(r)
-          fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
+        console.log(r);
+        fetch(
+          `http://localhost:9292/households/${currentUser.household_id}/tasks`
+        )
           .then((r) => r.json())
           .then((tasks) => {
-            console.log("TASKS FROM TASKS MOD", tasks)
-          // setCurrentHouseholdTasks(tasks);
-      });
+            console.log("TASKS FROM TASKS MOD", tasks);
+            // setCurrentHouseholdTasks(tasks);
+          });
       })
-      .catch(msg => console.log("TASKTODELETE .catch msg", msg))
+      .catch((msg) => console.log("TASKTODELETE .catch msg", msg));
   }
 
   function handleDate(date) {
@@ -52,7 +56,7 @@ function Tasks({
   function handleTime(date) {
     const hour = parseInt(date.slice(12, 13));
     const minute = parseInt(date.slice(15, 16));
-    const amPm = hour > 12 ? "PM" : "AM"
+    const amPm = hour > 12 ? "PM" : "AM";
 
     const formattedTime = `${hour}:${minute} ${amPm}`;
     return formattedTime;
@@ -71,8 +75,10 @@ function Tasks({
           <Button
             onClick={() => setShowCreateTask(true)}
             className="create-btn"
+            style={{ backgroundColor: "#C71C81", borderColor: "#C71C81" }}
+            className="align-middle"
           >
-            Create
+            Create Task
           </Button>
         </Col>
       </Row>
