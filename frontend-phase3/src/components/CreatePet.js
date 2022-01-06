@@ -50,9 +50,6 @@ function CreatePet(props) {
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Add Pet to Household
-        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={(e) => handleSubmit(e)}>
@@ -80,7 +77,7 @@ function CreatePet(props) {
             </Form.Group>
           </Row>
           <Button variant="primary" type="submit">
-            Submit
+            Add a New Pet
           </Button>
         </Form>
       </Modal.Body>

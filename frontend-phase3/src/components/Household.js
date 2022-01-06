@@ -25,6 +25,7 @@ function Household({
                 <Toast
                   show={showAddNewHouseholdMember}
                   onClose={toggleShowAddNewHouseholdMember}
+                  delay={3000} autohide
                 >
                   <Toast.Header>
                     <strong className="me-auto">Notification</strong>

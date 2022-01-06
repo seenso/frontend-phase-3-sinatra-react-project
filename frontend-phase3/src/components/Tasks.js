@@ -16,15 +16,14 @@ function Tasks({
   setTaskToDelete,
   currentUser,
   currentHouseholdName,
-  sortTasksByDueDate
+  sortTasksByDueDate,
 }) {
-  console.log("currentHouseholdTasks", currentHouseholdTasks)
+  console.log("currentHouseholdTasks", currentHouseholdTasks);
 
   function handleDeleteTask(e) {
-    // console.log("DELETE THIS", e.target.attributes[1].value)
 
     fetch(
-      `http://localhost:9292/tasks/${parseInt(e.target.attributes[1].value)}`,
+      `http://localhost:9292/tasks/${parseInt(e.target.attributes[0].value)}`,
       {
         method: "DELETE",
         headers: {
@@ -47,7 +46,6 @@ function Tasks({
       .catch((msg) => console.log("TASKTODELETE .catch msg", msg));
   }
 
-
   function handleDate(date) {
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
@@ -64,16 +62,12 @@ function Tasks({
   //   return formattedTime;
   // }
 
-
-
   return (
     <Container>
       <Row>
         <Col>
           <h1>
-            {currentHouseholdTasks
-              ? `The Tasks of ${currentHouseholdName}`
-              : "Tasks"}
+            {currentHouseholdTasks ? `${currentHouseholdName} Tasks` : "Tasks"}
           </h1>
         </Col>
         <Col>
@@ -91,27 +85,45 @@ function Tasks({
         <Col>
           {currentHouseholdTasks
             ? currentHouseholdTasks.map((t) => {
+                console.log("T is", t);
                 return (
                   <Card key={t.id}>
                     <Card.Body>
-                      <Card.Title>{t.task_name}</Card.Title>
-                        {t.task_is_recurring.toString() === "true" ? 
-                        <Card.Text>This is a recurring task! Recurs every {t.task_frequency} days.</Card.Text> : null}
+                      <Button
+                        onClick={(e) => handleDeleteTask(e)}
+                        data-task-id={t.id}
+                      >
+                        ✓
+                      </Button>
+                      <Card.Title>
+                        {t.task_name} | {t.pet.first_name} the {t.pet.species}
+                      </Card.Title>
+                      <Card.Text>{t.user.first_name}</Card.Text>
                     </Card.Body>
                     <ListGroup className="list-group-flush">
-                      <ListGroupItem>Due Date: {handleDate(t.task_due_date)}</ListGroupItem>
-                      <ListGroupItem>Date: {
-                        handleDate(t.task_end_date) ? handleDate(t.task_start_date)+" - "+ handleDate(t.task_end_date) : handleDate(t.task_start_date)
-                        }
+                      <ListGroupItem>
+                        Due Date: {handleDate(t.task_due_date)}
                       </ListGroupItem>
-                      {/* <ListGroupItem>Time: {
-                        handleTime(t.task_end_date) ? handleTime(t.task_start_date)+" - "+ handleTime(t.task_end_date) : handleTime(t.task_start_date)
-                        }
-                        </ListGroupItem> */}
+
+                      {t.task_is_recurring.toString() === "true" ? (
+                        <ListGroupItem>
+                          From:{" "}
+                          {handleDate(t.task_end_date)
+                            ? handleDate(t.task_start_date) +
+                              " to " +
+                              handleDate(t.task_end_date)
+                            : handleDate(t.task_start_date)}
+                        </ListGroupItem>
+                      ) : null}
                     </ListGroup>
-                    <Card.Body>
-                      <Card.Link onClick={e => handleDeleteTask(e)} data-task-id={t.id}>Mark Complete</Card.Link>
-                    </Card.Body>
+
+                    {t.task_is_recurring.toString() === "true" ? (
+                      <Card.Body>
+                        <Card.Text>
+                          Do it every {t.task_frequency} days.
+                        </Card.Text>
+                      </Card.Body>
+                    ) : null}
                   </Card>
                 );
               })

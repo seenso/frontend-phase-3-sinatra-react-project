@@ -48,9 +48,6 @@ function CreateHousehold(props) {
         <Container>
           <Row>
             <Col xs={12} md={8}>
-              <Modal.Title id="contained-modal-title-vcenter">
-                Add Household Member
-              </Modal.Title>
             </Col>
             <Col xs={6} md={4}>
               <CloseButton
@@ -65,6 +62,7 @@ function CreateHousehold(props) {
         <Form
           onSubmit={(e) => {
             handleFormSubmit(e);
+            props.toggleShowAddNewHouseholdMember();
           }}
         >
           <Row className="mb-3">
@@ -88,7 +86,7 @@ function CreateHousehold(props) {
           </Row>
 
           <Button variant="primary" type="submit">
-            Submit
+            Add a New Household Member
           </Button>
         </Form>
       </Modal.Body>
