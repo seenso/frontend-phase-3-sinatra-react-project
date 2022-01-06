@@ -17,7 +17,7 @@ function Tasks({
   currentUser,
   currentHouseholdName,
 }) {
-  // console.log("currentHouseholdTasks", currentHouseholdTasks)
+  console.log("currentHouseholdTasks", currentHouseholdTasks)
 
   function handleDeleteTask(e) {
     // console.log("DELETE THIS", e.target.attributes[1].value)
@@ -83,9 +83,9 @@ function Tasks({
         </Col>
       </Row>
       <Row>
-        {/* <Col>
+        <Col>
           {currentHouseholdTasks
-            ? currentHouseholdTasks.tasks.map((t) => {
+            ? currentHouseholdTasks.map((t) => {
                 return (
                   <Card key={t.id}>
                     <Card.Body>
@@ -111,7 +111,7 @@ function Tasks({
                 );
               })
             : "Please select your user from the dropdown on the top right."}
-        </Col> */}
+        </Col>
       </Row>
     </Container>
   );
