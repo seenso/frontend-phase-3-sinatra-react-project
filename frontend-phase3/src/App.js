@@ -41,6 +41,7 @@ function App() {
   const [currentHouseholdPets, setCurrentHouseholdPets] = useState();
   const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
 
+
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
       .then((r) => r.json())
@@ -48,6 +49,7 @@ function App() {
         setCurrentHouseholdID(r.id);
         setCurrentHouseholdUsers(r.users);
       });
+
   }, [currentUser]);
 
   useEffect(() => {
@@ -61,10 +63,10 @@ function App() {
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
-      .then((r) => {
-        console.log("R IN APP", r);
-        setCurrentHouseholdName(r.household_name);
-        setCurrentHouseholdTasks(r.tasks);
+      .then((tasks) => {
+        // console.log("IS THIS MY TASKS???", tasks)
+        setCurrentHouseholdName(tasks[0].household.household_name);
+        setCurrentHouseholdTasks(tasks);
       });
   }, [currentUser]);
 
@@ -161,6 +163,7 @@ function App() {
                 currentHouseholdTasks={currentHouseholdTasks}
                 setCurrentHouseholdTasks={setCurrentHouseholdTasks}
                 currentUser={currentUser}
+                currentHouseholdUsers={currentHouseholdUsers}
                 currentHouseholdName={currentHouseholdName}
               />
               <CreateTask

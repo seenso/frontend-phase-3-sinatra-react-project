@@ -30,9 +30,7 @@ function SplashPage() {
                 </Accordion.Header>
                 <Accordion.Body>
                   <p>
-                    Do you and your partner always fight about who does the
-                    litter box? Do you end up feeding your roommate's snakes? Is
-                    it always your turn to walk the dog?
+                    Do you and your partner always fight about who does the litter box? Do you end up feeding your roommate's snakes? Is it always your turn to walk the dog?
                   </p>
 
                   <p>
@@ -41,30 +39,25 @@ function SplashPage() {
                   </p>
 
                   <p>
-                    Simply create your household, add your household members,
-                    add your lovely pets and add the regular or one-off task
-                    that you need to do to keep your fluffy, furry, (or scaly)
-                    friends happy. And end fights with your roommates or
-                    partner.
+                    Simply create your household, add your household members, add your lovely pets and add the regular or one-off task that you need to do to keep your fluffy, furry, (or scaly) friends happy. And end fights with your roommates or partner.
                   </p>
 
                   <p>
-                    Want to try it out for yourself? Click an example user on
-                    the top right to get started.
+                    Want to try it out for yourself? Click an example user on the top right to get started.
                   </p>
 
                   <p>
                     Check out the repos for{" "}
                     <a
                       href="https://github.com/seenso/frontend-phase-3-sinatra-react-project"
-                      target="_blank"
+                      // target="_blank"
                     >
                       frontend
                     </a>{" "}
                     and{" "}
                     <a
                       href="https://github.com/seenso/phase-3-sinatra-react-project"
-                      target="_blank"
+                      // target="_blank"
                     >
                       backend
                     </a>
@@ -72,18 +65,16 @@ function SplashPage() {
                   </p>
 
                   <p>
-                    Interested in the folks who wrote this app? Check out or
+                    Interested in the folks who wrote this app? Check out our
                     bios or hire{" "}
                     <a
                       href="https://www.linkedin.com/in/sean-hurley/"
-                      target="_blank"
-                    >
-                      Sean
-                    </a>{" "}
+                      // target="_blank"
+                    >Sean</a>{" "}
                     or{" "}
                     <a
                       href="https://www.linkedin.com/in/seenso/"
-                      target="_blank"
+                      // target="_blank"
                     >
                       Seen
                     </a>{" "}
@@ -101,8 +92,7 @@ function SplashPage() {
                   <br />
                   <br />
                   <p>
-                    Raised in Ireland. Sean owns 2 cats and codes like a
-                    glorious demon.
+                    Raised in Ireland and now living in Sacremento, California, Sean's Digital Marketing background provided a firm analytical foundation to propel him to a successful software engineering career.
                   </p>
                   <br />
                   <h1>Seen</h1>
@@ -110,8 +100,7 @@ function SplashPage() {
                   <br />
                   <br />
                   <p>
-                    A lifelong Alaskan who first accidentally learned how to
-                    code in CSS when trying to create her custom MySpace theme.
+                    A lifelong Alaskan who first accidentally learned how to code in CSS when trying to create her custom MySpace theme. Seen's MIS and ERP background, along with her system development internship, is a surefire way to succeed in the software industry.
                   </p>
                 </Accordion.Body>
               </Accordion.Item>
