@@ -26,6 +26,8 @@ function App() {
     setShowAddNewHouseholdMember(!showAddNewHouseholdMember);
   }
 
+  //Add notifications for pets and task completion.
+
   const [showCreateHousehold, setShowCreateHousehold] = useState(false);
   const [showCreatePet, setShowCreatePet] = useState(false);
   const [showCreateTask, setShowCreateTask] = useState(false);
