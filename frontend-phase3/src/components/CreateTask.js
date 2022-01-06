@@ -54,12 +54,13 @@ function CreateTask(props) {
         )
           .then((res) => res.json())
           .then((tasks) => {
-            // console.log("new list of tasks", tasks)
+            console.log("new list of tasks", tasks)
             //sort tasks by due date
 
             //set tasks
             // const sortedTasks = props.sortTasksByDueDate(tasks.tasks)
-            props.setCurrentHouseholdTasks(tasks.tasks);
+            props.setCurrentHouseholdTasks(tasks);
+            setRecurring(!recurring)
           });
       });
     props.onHide(false);
