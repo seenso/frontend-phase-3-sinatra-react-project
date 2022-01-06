@@ -6,7 +6,6 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
 function CreatePet(props) {
-
   function handleSubmit(e) {
     e.preventDefault(e);
 
@@ -25,20 +24,21 @@ function CreatePet(props) {
         last_name: lastname,
         age: age,
         species: species,
-        household_id: props.currentHouseholdID
-      })
+        household_id: props.currentHouseholdID,
+      }),
     })
-    .then((r) => r.json())
-    .then((data) => console.log("Posted pet: ", data))
+      .then((r) => r.json())
+      .then((data) => console.log("Posted pet: ", data))
 
-    
-    .then((r) => {
-      fetch(`http://localhost:9292/households/${props.currentHouseholdID}/pets`)
-      .then((res) => res.json())
-      .then((pets) => {
-        props.setCurrentHouseholdPets(pets);
-      })
-    });
+      .then((r) => {
+        fetch(
+          `http://localhost:9292/households/${props.currentHouseholdID}/pets`
+        )
+          .then((res) => res.json())
+          .then((pets) => {
+            props.setCurrentHouseholdPets(pets);
+          });
+      });
     props.onHide(false);
   }
 
@@ -55,7 +55,7 @@ function CreatePet(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Form onSubmit={e => handleSubmit(e)}>
+        <Form onSubmit={(e) => handleSubmit(e)}>
           <Row className="mb-3">
             <Form.Group as={Col} controlId="firstName">
               <Form.Label>First Name</Form.Label>

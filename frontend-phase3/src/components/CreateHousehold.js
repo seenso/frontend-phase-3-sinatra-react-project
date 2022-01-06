@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 import CloseButton from "react-bootstrap/CloseButton";
 
 function CreateHousehold(props) {
-  
   function handleFormSubmit(e) {
     e.preventDefault();
     const firstname = e.target[0].value;
@@ -22,21 +21,23 @@ function CreateHousehold(props) {
         first_name: firstname,
         last_name: lastname,
         household_id: props.currentHouseholdID,
-      })
+      }),
     })
-    .then((r) => r.json())
-    .then((data) => console.log("Posted user: ", data))
-    .then((r) => {
-        fetch(`http://localhost:9292/households/${props.currentHouseholdID}/users`)
-        .then((res) => res.json())
-        .then((users) => {
-          props.setCurrentHouseholdUsers(users);
-        })
-    });
+      .then((r) => r.json())
+      .then((data) => console.log("Posted user: ", data))
+      .then((r) => {
+        fetch(
+          `http://localhost:9292/households/${props.currentHouseholdID}/users`
+        )
+          .then((res) => res.json())
+          .then((users) => {
+            props.setCurrentHouseholdUsers(users);
+          });
+      });
     props.onHide(false);
+    props.toggleShowAddNewHouseholdMember();
   }
-  
-  
+
   return (
     <Modal
       {...props}
@@ -49,7 +50,7 @@ function CreateHousehold(props) {
           <Row>
             <Col xs={12} md={8}>
               <Modal.Title id="contained-modal-title-vcenter">
-                Add Household Member
+                Add A New Household Member
               </Modal.Title>
             </Col>
             <Col xs={6} md={4}>
@@ -87,9 +88,19 @@ function CreateHousehold(props) {
             </Form.Group>
           </Row>
 
-          <Button variant="primary" type="submit">
-            Submit
-          </Button>
+          <Container>
+            <Row className="d-flex justify-content-center">
+              <Col></Col>
+              <Col className="d-flex justify-content-center">
+                <Row>
+                  <Button variant="primary" type="submit">
+                    Add!
+                  </Button>
+                </Row>
+              </Col>
+              <Col></Col>
+            </Row>
+          </Container>
         </Form>
       </Modal.Body>
     </Modal>

@@ -126,7 +126,16 @@ function SplashPage() {
           <Col></Col>
           <Col className="d-flex justify-content-center">
             <Row>
-              <a href="https://www.youtube.com/watch?v=AcL0MeVZIxM" target="_blank"><img src="./splash-page-doggo.png" alt="dog icon" height="300" /></a>
+              <a
+                href="https://www.youtube.com/watch?v=AcL0MeVZIxM"
+                target="_blank"
+              >
+                <img
+                  src="./splash-page-doggo.png"
+                  alt="dog icon"
+                  height="300"
+                />
+              </a>
             </Row>
           </Col>
           <Col></Col>
