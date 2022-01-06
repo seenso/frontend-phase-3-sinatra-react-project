@@ -42,30 +42,6 @@ function App() {
   const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
 
 
-
-  // useEffect(() => {
-  //   fetch(`http://localhost:9292/all`)
-  //     .then((r) => r.json())
-  //     .then((householdData) => {
-  //       console.log("householdData", householdData[0]);
-
-  //       // filter household data for current household id
-
-  //       //pass on current household dataset
-
-
-
-  //       // need setCurrentHouseholdID
-  //     })
-  //     // .then(currentHouseholdData => {
-  //     //   //set the 4 states below in this step
-  //     //   //setCurrentHouseholdUsers, setCurrentHouseholdPets, setCurrentHouseholdName, setCurrentHouseholdTasks
-  //     // });
-
-  // }, [currentUser]);
-
-
-
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
       .then((r) => r.json())
