@@ -23,14 +23,16 @@ function SplashPage() {
         <Row className="justify-content-md-center">
           <Col></Col>
           <Row>
-            <Accordion defaultActiveKey="0" flush>
+            <Accordion flush>
               <Accordion.Item eventKey="0">
                 <Accordion.Header>
                   <strong>About Whose Turn Is It?</strong>
                 </Accordion.Header>
                 <Accordion.Body>
                   <p>
-                    Do you and your partner always fight about who does the litter box? Do you end up feeding your roommate's snakes? Is it always your turn to walk the dog?
+                    Do you and your partner always fight about who does the
+                    litter box? Do you end up feeding your roommate's snakes? Is
+                    it always your turn to walk the dog?
                   </p>
 
                   <p>
@@ -39,11 +41,16 @@ function SplashPage() {
                   </p>
 
                   <p>
-                    Simply create your household, add your household members, add your lovely pets and add the regular or one-off task that you need to do to keep your fluffy, furry, (or scaly) friends happy. And end fights with your roommates or partner.
+                    Simply create your household, add your household members,
+                    add your lovely pets and add the regular or one-off task
+                    that you need to do to keep your fluffy, furry, (or scaly)
+                    friends happy. And end fights with your roommates or
+                    partner.
                   </p>
 
                   <p>
-                    Want to try it out for yourself? Click an example user on the top right to get started.
+                    Want to try it out for yourself? Click an example user on
+                    the top right to get started.
                   </p>
 
                   <p>
@@ -70,7 +77,9 @@ function SplashPage() {
                     <a
                       href="https://www.linkedin.com/in/sean-hurley/"
                       // target="_blank"
-                    >Sean</a>{" "}
+                    >
+                      Sean
+                    </a>{" "}
                     or{" "}
                     <a
                       href="https://www.linkedin.com/in/seenso/"
@@ -92,7 +101,10 @@ function SplashPage() {
                   <br />
                   <br />
                   <p>
-                    Raised in Ireland and now living in Sacremento, California, Sean's Digital Marketing background provided a firm analytical foundation to propel him to a successful software engineering career.
+                    Raised in Ireland and now living in Sacremento, California,
+                    Sean's Digital Marketing background provided a firm
+                    analytical foundation to propel him to a successful software
+                    engineering career.
                   </p>
                   <br />
                   <h1>Seen</h1>
@@ -100,7 +112,11 @@ function SplashPage() {
                   <br />
                   <br />
                   <p>
-                    A lifelong Alaskan who first accidentally learned how to code in CSS when trying to create her custom MySpace theme. Seen's MIS and ERP background, along with her system development internship, is a surefire way to succeed in the software industry.
+                    A lifelong Alaskan who first accidentally learned how to
+                    code in CSS when trying to create her custom MySpace theme.
+                    Seen's MIS and ERP background, along with her system
+                    development internship, is a surefire way to succeed in the
+                    software industry.
                   </p>
                 </Accordion.Body>
               </Accordion.Item>

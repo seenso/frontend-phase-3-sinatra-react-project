@@ -3,24 +3,23 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
 import ListGroupItem from "react-bootstrap/esm/ListGroupItem";
-// import { format } from "date-fns";
 
 function Tasks({
   setShowCreateTask,
   currentHouseholdTasks,
   setCurrentHouseholdTasks,
-  taskToDelete,
-  setTaskToDelete,
   currentUser,
   currentHouseholdName,
-  sortTasksByDueDate,
+  setConfetti
 }) {
   console.log("currentHouseholdTasks", currentHouseholdTasks);
 
   function handleDeleteTask(e) {
+    
+    setConfetti(true)
+    setTimeout(() => {setConfetti(false)}, 5000);
 
     fetch(
       `http://localhost:9292/tasks/${parseInt(e.target.attributes[0].value)}`,
@@ -32,14 +31,11 @@ function Tasks({
       }
     )
       .then((r) => {
-        // console.log(r);
         fetch(
           `http://localhost:9292/households/${currentUser.household_id}/tasks`
         )
           .then((r) => r.json())
           .then((tasks) => {
-            // console.log("TASKS FROM TASKS MOD", tasks);
-            // const sortedTasks = sortTasksByDueDate(tasks);
             setCurrentHouseholdTasks(tasks);
           });
       })
@@ -47,11 +43,15 @@ function Tasks({
   }
 
   function handleDate(date) {
+    if (date === null) {
+      return date
+    } else {
     const year = date.slice(0, 4);
     const month = date.slice(5, 7);
     const day = date.slice(8, 10);
     const formattedDate = `${month}/${day}/${year}`;
     return formattedDate;
+    }
   }
 
   // function handleTime(date) {
@@ -74,7 +74,6 @@ function Tasks({
           <Button
             onClick={() => setShowCreateTask(true)}
             className="create-btn"
-            // className="align-middle"
             style={{ backgroundColor: "#C71C81", borderColor: "#C71C81" }}
           >
             Create Task
@@ -96,34 +95,19 @@ function Tasks({
                         ✓
                       </Button>
                       <Card.Title>
-                        {t.task_name} | {t.pet.first_name} the {t.pet.species}
+                        {t.task_name}
                       </Card.Title>
                       <Card.Text>{t.user.first_name}</Card.Text>
                     </Card.Body>
-                    <ListGroup className="list-group-flush">
-                      <ListGroupItem>
-                        Due Date: {handleDate(t.task_due_date)}
-                      </ListGroupItem>
-
-                      {t.task_is_recurring.toString() === "true" ? (
-                        <ListGroupItem>
-                          From:{" "}
-                          {handleDate(t.task_end_date)
-                            ? handleDate(t.task_start_date) +
-                              " to " +
-                              handleDate(t.task_end_date)
-                            : handleDate(t.task_start_date)}
-                        </ListGroupItem>
-                      ) : null}
-                    </ListGroup>
+                    
 
                     {t.task_is_recurring.toString() === "true" ? (
-                      <Card.Body>
-                        <Card.Text>
+                      <ListGroupItem className="list-group-flush">
                           Do it every {t.task_frequency} days.
-                        </Card.Text>
-                      </Card.Body>
-                    ) : null}
+                          </ListGroupItem>
+                    ) : <ListGroupItem>
+                    Due Date: {handleDate(t.task_due_date)}
+                  </ListGroupItem>}
                   </Card>
                 );
               })

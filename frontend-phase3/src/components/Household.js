@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -25,7 +24,8 @@ function Household({
                 <Toast
                   show={showAddNewHouseholdMember}
                   onClose={toggleShowAddNewHouseholdMember}
-                  delay={3000} autohide
+                  delay={3000}
+                  autohide
                 >
                   <Toast.Header>
                     <strong className="me-auto">Notification</strong>
@@ -69,7 +69,7 @@ function Household({
                   key={u.id}
                   border="light"
                 >
-                  <Card.Img variant="top" src="./profile-pic.png" />
+                  <Card.Img variant="top" src={u.profile_pic} />
                   <Card.Body style={{ padding: ".5rem .5rem" }}>
                     <Card.Title className="d-flex justify-content-center">
                       <span style={{ color: "#C71C81", textAlign: "center" }}>
@@ -87,34 +87,3 @@ function Household({
 }
 
 export default Household;
-
-// currentHousehold[0].users.map(user => {
-//     return (<li key={user.id} value={user.id}>{user.first_name} {user.last_name}</li>)
-//       })
-
-/* {currentHousehold.map(household => {
-                      return (<li key={household.id} value={household.id}>{household.users.map(user => {
-                        return(
-                          <li>user.first_name</li>
-                          )
-                          })}</li>)
-                    })} */
-
-// let currentHousehold
-
-// const [currentHouseholdUsers, setCurrentHouseholdUsers] = useState();
-// useEffect(() =>
-// {
-//   currentHousehold = (householdData.filter(household => household.id === currentUser.household_id))
-//   console.log("CURRENT HOUSEHOLD", currentHousehold,
-//   //"CURRENT USERS IN HOUSEHOLD: ", currentHousehold[0].users
-//   )
-
-//   fetch(`http://localhost:9292/households/${currentUser.household_id}`)
-//   .then(r => r.json())
-//   .then(r => {
-//     setCurrentHouseholdUsers(r)
-//     console.log(r)
-//   })
-
-// },[currentUser])

@@ -5,14 +5,39 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ListGroup from "react-bootstrap/ListGroup";
 import Card from "react-bootstrap/Card";
+import Toast from "react-bootstrap/Toast";
 
 function Pets({
   setShowCreatePet,
   currentHouseholdPets,
   currentHouseholdName,
+  toggleShowAddNewHouseholdPet,
+  showAddNewHouseholdPet,
 }) {
   return (
     <Container>
+      <Container>
+          <Row className="d-flex justify-content-center">
+            <Col></Col>
+            <Col className="d-flex justify-content-center">
+              <Row>
+                <Toast
+                  show={showAddNewHouseholdPet}
+                  onClose={toggleShowAddNewHouseholdPet}
+                  delay={3000} autohide
+                >
+                  <Toast.Header>
+                    <strong className="me-auto">Notification</strong>
+                  </Toast.Header>
+                  <Toast.Body>
+                    Woohoo, you added a new pet to your household! 🎉
+                  </Toast.Body>
+                </Toast>
+              </Row>
+            </Col>
+            <Col></Col>
+          </Row>
+        </Container>
       <Row>
         <Col sm={10}>
           <h1>

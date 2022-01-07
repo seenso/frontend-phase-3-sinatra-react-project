@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 import CloseButton from "react-bootstrap/CloseButton";
 
 function CreateHousehold(props) {
-  
   function handleFormSubmit(e) {
     e.preventDefault();
     const firstname = e.target[0].value;
@@ -21,22 +20,24 @@ function CreateHousehold(props) {
       body: JSON.stringify({
         first_name: firstname,
         last_name: lastname,
-        household_id: props.currentHouseholdID
-      })
+        household_id: props.currentHouseholdID,
+        profile_pic: "./profilepic1.png",
+      }),
     })
-    .then((r) => r.json())
-    .then((data) => console.log("Posted user: ", data))
-    .then((r) => {
-        fetch(`http://localhost:9292/households/${props.currentHouseholdID}/users`)
-        .then((res) => res.json())
-        .then((users) => {
-          props.setCurrentHouseholdUsers(users);
-        })
-    });
+      .then((r) => r.json())
+      .then((data) => console.log("Posted user: ", data))
+      .then((r) => {
+        fetch(
+          `http://localhost:9292/households/${props.currentHouseholdID}/users`
+        )
+          .then((res) => res.json())
+          .then((users) => {
+            props.setCurrentHouseholdUsers(users);
+          });
+      });
     props.onHide(false);
   }
-  
-  
+
   return (
     <Modal
       {...props}
@@ -47,8 +48,7 @@ function CreateHousehold(props) {
       <Modal.Header>
         <Container>
           <Row>
-            <Col xs={12} md={8}>
-            </Col>
+            <Col xs={12} md={8}></Col>
             <Col xs={6} md={4}>
               <CloseButton
                 onClick={props.onHide}
