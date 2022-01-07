@@ -14,8 +14,6 @@ function Tasks({
   currentHouseholdName,
   setConfetti
 }) {
-  console.log("currentHouseholdTasks", currentHouseholdTasks);
-
   function handleDeleteTask(e) {
     
     setConfetti(true)
