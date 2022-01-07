@@ -24,3 +24,6 @@ For this project, you must:
 
 # Wire Frame
 <img width="1433" alt="WhoseTurnIsIt? Wireframe" src="https://user-images.githubusercontent.com/46327683/147964785-d1222fe3-f63d-4bef-ac7b-22dd135984e4.png">
+
+# Entity Relationship Diagram
+![image](https://user-images.githubusercontent.com/46327683/148500450-aad4f48b-1a96-4b27-b11a-590a273d5486.png)
