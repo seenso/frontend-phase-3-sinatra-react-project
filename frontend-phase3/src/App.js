@@ -6,6 +6,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Confetti from "react-confetti";
 
 import Household from "./components/Household";
 import CreateHousehold from "./components/CreateHousehold";
@@ -19,6 +20,17 @@ import SplashPage from "./components/SplashPage";
 function App() {
   const url = "http://localhost:9292";
 
+  const [showCreateHousehold, setShowCreateHousehold] = useState(false);
+  const [showCreatePet, setShowCreatePet] = useState(false);
+  const [showCreateTask, setShowCreateTask] = useState(false);
+  const [userData, setUserData] = useState([]);
+  const [currentUser, setCurrentUser] = useState(0);
+  const [currentHouseholdID, setCurrentHouseholdID] = useState();
+  const [currentHouseholdName, setCurrentHouseholdName] = useState();
+  const [currentHouseholdUsers, setCurrentHouseholdUsers] = useState();
+  const [currentHouseholdPets, setCurrentHouseholdPets] = useState();
+  const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
+  const [showAddNewHouseholdPet, setShowAddNewHouseholdPet] = useState(false);
   const [showAddNewHouseholdMember, setShowAddNewHouseholdMember] =
     useState(false);
 
@@ -26,23 +38,9 @@ function App() {
     setShowAddNewHouseholdMember(!showAddNewHouseholdMember);
   }
 
-  //Add notifications for pets and task completion.
-
-  const [showCreateHousehold, setShowCreateHousehold] = useState(false);
-  const [showCreatePet, setShowCreatePet] = useState(false);
-  const [showCreateTask, setShowCreateTask] = useState(false);
-
-  const [userData, setUserData] = useState([]);
-  const [petData, setPetData] = useState([]);
-
-  //Added state for the CURRENT user's household, householder members(users), household pets, and household tasks
-  const [currentUser, setCurrentUser] = useState(0);
-  const [currentHouseholdID, setCurrentHouseholdID] = useState();
-  const [currentHouseholdName, setCurrentHouseholdName] = useState();
-  const [currentHouseholdUsers, setCurrentHouseholdUsers] = useState();
-  const [currentHouseholdPets, setCurrentHouseholdPets] = useState();
-  const [currentHouseholdTasks, setCurrentHouseholdTasks] = useState();
-
+  function toggleShowAddNewHouseholdPet() {
+    setShowAddNewHouseholdPet(!showAddNewHouseholdPet);
+  }
 
   useEffect(() => {
     fetch(`http://localhost:9292/households/${currentUser.household_id}`)
@@ -51,7 +49,6 @@ function App() {
         setCurrentHouseholdID(r.id);
         setCurrentHouseholdUsers(r.users);
       });
-
   }, [currentUser]);
 
   useEffect(() => {
@@ -66,25 +63,16 @@ function App() {
     fetch(`http://localhost:9292/households/${currentUser.household_id}/tasks`)
       .then((r) => r.json())
       .then((tasks) => {
-        // console.log("IS THIS MY TASKS???", tasks)
         setCurrentHouseholdName(tasks[0].household.household_name);
         setCurrentHouseholdTasks(tasks);
       });
   }, [currentUser]);
-
-  // These are needed to populate the user dropdown and the pets dropdown(in CreateTasks).
 
   useEffect(() => {
     fetch(url + "/users")
       .then((r) => r.json())
       .then((data) => setUserData(data));
   }, [showCreateHousehold]);
-
-  useEffect(() => {
-    fetch(url + "/pets")
-      .then((r) => r.json())
-      .then((data) => setPetData(data));
-  }, [showCreatePet]);
 
   function handleUserChange(e) {
     const userID = e.target.value;
@@ -93,12 +81,13 @@ function App() {
     setCurrentUser(userObj);
   }
 
+  const [confetti, setConfetti] = useState(false);
   return (
     <div>
       <div id="header-container">
         <Header />
+        {confetti ? <Confetti run={confetti} /> : null}
 
-        {/* Put this form in its own component!? */}
         <Form.Select
           aria-label="user_select"
           id="user-dropdown"
@@ -115,7 +104,6 @@ function App() {
         </Form.Select>
       </div>
 
-      {/* Could we move this whole ternerary to a new component? */}
       {currentUser === 0 ? (
         <SplashPage />
       ) : (
@@ -148,6 +136,8 @@ function App() {
                 setShowCreatePet={setShowCreatePet}
                 currentHouseholdPets={currentHouseholdPets}
                 currentHouseholdName={currentHouseholdName}
+                toggleShowAddNewHouseholdPet={toggleShowAddNewHouseholdPet}
+                showAddNewHouseholdPet={showAddNewHouseholdPet}
               />
               <CreatePet
                 show={showCreatePet}
@@ -155,6 +145,7 @@ function App() {
                 currentHouseholdID={currentHouseholdID}
                 currentHouseholdPets={currentHouseholdPets}
                 setCurrentHouseholdPets={setCurrentHouseholdPets}
+                toggleShowAddNewHouseholdPet={toggleShowAddNewHouseholdPet}
               />
             </Col>
           </Row>
@@ -167,6 +158,8 @@ function App() {
                 currentUser={currentUser}
                 currentHouseholdUsers={currentHouseholdUsers}
                 currentHouseholdName={currentHouseholdName}
+                confetti={confetti}
+                setConfetti={setConfetti}
               />
               <CreateTask
                 show={showCreateTask}

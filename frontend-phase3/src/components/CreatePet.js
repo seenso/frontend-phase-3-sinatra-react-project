@@ -49,10 +49,14 @@ function CreatePet(props) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
-        <Form onSubmit={(e) => handleSubmit(e)}>
+        <Form
+          onSubmit={(e) => {
+            handleSubmit(e);
+            props.toggleShowAddNewHouseholdPet();
+          }}
+        >
           <Row className="mb-3">
             <Form.Group as={Col} controlId="firstName">
               <Form.Label>First Name</Form.Label>
